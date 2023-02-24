@@ -1,0 +1,50 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"-->
+<!--      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">-->
+<!--<head>-->
+<!--    <title>Авторизация</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
+<!--    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+<!--    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
+<!--</head>-->
+<!--<body class="text-center" style="margin-right: auto; margin-left: auto; margin-top: 200px">-->
+<!--    <div class="row center mt-10">-->
+<!--        <form class="col s12 offset-m4 m4" th:action="@{/login}" method="post">-->
+<!--            <div class="card z-depth-4 ">-->
+<!--                <div class="card-content blue-grey lighten-4">-->
+<!--                    <span class="card-title">Добро пожаловать!</span>-->
+<!--                    <div th:if="${param.error}" class="red-text">-->
+<!--                        Неверный логин и/или пароль.-->
+<!--                    </div>-->
+
+<!--                    <div th:if="${param.logout}" class="red-text">-->
+<!--                        Вы вышли из аккаунта.-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="card-content s12">-->
+<!--                    <div class="input-field">-->
+<!--                        <i class="material-icons prefix pr-3">email</i>-->
+<!--                        <input required name="username" id="input-email" type="email" class="validate"/>-->
+<!--                        <label for="input-email">Эл. почта</label>-->
+<!--                    </div>-->
+
+<!--                    <div class="input-field">-->
+<!--                        <i class="material-icons prefix pr-3">lock</i>-->
+<!--                        <input required name="password" id="password" type="password" class="validate"/>-->
+<!--                        <label for="password">Пароль</label>-->
+<!--                    </div>-->
+
+<!--                    <div class="row" style="margin-bottom: 0px">-->
+<!--                        <input type="submit" value="Авторизация" class="left btn waves-effect waves-light blue ml-5"/>-->
+<!--                        <a th:href="'/registration'" class="right btn waves-effect waves-light green accent-4 mr-4">Создать аккаунт</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
