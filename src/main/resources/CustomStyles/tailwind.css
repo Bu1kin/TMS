@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.display-none{
-    @apply hidden;
-}
+/*.display-none{*/
+/*    @apply hidden;*/
+/*}*/

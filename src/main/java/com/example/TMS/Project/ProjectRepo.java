@@ -2,5 +2,8 @@ package com.example.TMS.Project;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProjectRepo extends JpaRepository<ProjectModel, Long> {
+import java.util.List;
+
+public interface ProjectRepo extends JpaRepository<Project, Long> {
+    public List<Project> findByNameProjectContaining(String name);
 }
