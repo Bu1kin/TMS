@@ -119,10 +119,10 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-white">Добавление теста</h3>
+                    <h3 class="mb-4 text-xl font-medium text-white">Добавление задачи</h3>
                     <form class="space-y-6" method="post" th:action="'/test/taskList/' + ${test.getId()}" th:object="${task}">
                         <div>
-                            <label for="nameTask" class="block mb-2 text-sm font-medium text-white">Название</label>
+                            <label for="nameTask" class="block mb-2 text-sm font-medium text-white">Название задачи</label>
                             <input name="nameTask" id="nameTask" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
                         </div>
                         <div>

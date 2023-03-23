@@ -118,20 +118,20 @@
                     <h3 class="mb-4 text-xl font-medium text-white">Добавление теста</h3>
                     <form class="space-y-6" method="post" th:action="'/project/testList/' + ${project.getId()}" th:object="${test}">
                         <div>
-                            <label for="nameTest" class="block mb-2 text-sm font-medium text-white">Название</label>
+                            <label for="nameTest" class="block mb-2 text-sm font-medium text-white">Название теста</label>
                             <input name="nameTest" id="nameTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
                         </div>
                         <div>
                             <label for="descTest" class="block mb-2 text-sm font-medium text-white">Описание</label>
-                            <input name="description" id="descTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
+                            <input name="description" id="descTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Описание" required>
                         </div>
                         <div>
                             <label for="statusTest" class="block mb-2 text-sm font-medium text-white">Статус</label>
-                            <input name="status" id="statusTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
+                            <input name="status" id="statusTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Статус" required>
                         </div>
                         <div>
                             <label for="results" class="block mb-2 text-sm font-medium text-white">Результаты</label>
-                            <input name="results" id="results" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
+                            <input name="results" id="results" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Результаты" required>
                         </div>
                         <div class="flex items-center pt-2 space-x-2 rounded-b" style="margin-top: 12px">
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Добавить</button>
