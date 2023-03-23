@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <title>Проекты</title>
     <div th:insert="utility/3page"></div>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-800">
     <div class="p-4 sm:ml-64 bg-gray-800">
         <div class="p-4 border-2 border-gray-800 border-dashed rounded-lg mt-14">
-            <p class="text-3xl text-white font-semibold">Ваши проекты:</p>
+            <p class="text-3xl text-white font-semibold">Проекты</p>
+            <p class="text-base text-gray-200 mt-2">Здесь будут отображаться проекты организации</p>
             <div class="grid grid-cols-4 gap-4 mb-4 mt-4">
                 <button data-modal-target="modal1" data-modal-toggle="modal1" class="items-center justify-center h-48 rounded bg-gray-500 hover:bg-gray-400 focus:bg-gray-400 text-3xl text-white btn modal-trigger" href="#modal1">+</button>
 
@@ -62,12 +61,5 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
 </body>
 </html>
-
-<script>
-    $(document).ready(function(){
-        $('.modal').modal();
-    });
-</script>

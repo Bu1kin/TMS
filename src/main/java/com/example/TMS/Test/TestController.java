@@ -104,9 +104,6 @@ public class TestController {
         Test test = testRepo.findById(id).orElseThrow();
 
         Task task = new Task(nameTask, priority, status, duration, description, test);
-//        чтобы при изменении информации о тесте не сбрасывались id этого теста у задач, то есть убрать из конструктора test
-//        то же самое сделать между Проектом и Тестом
-//        task.setTest(test);
         taskRepo.save(task);
         return ("redirect:/test/taskList/{id}");
     }

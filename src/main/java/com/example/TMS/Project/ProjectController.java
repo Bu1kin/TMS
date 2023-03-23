@@ -99,11 +99,11 @@ public class ProjectController {
         return ("redirect:/project/testList/{id}");
     }
 
-    @GetMapping("/filter-contains")
-    public String projectFilterContains(@RequestParam String searchName,
-                                         Model model){
-        List<Project> projectList = projectRepo.findByNameProjectContaining(searchName);
-        model.addAttribute("projectList", projectList);
-        return "/Project/filter";
-    }
+//    @GetMapping("/filter-contains")
+//    public String projectFilterContains(@RequestParam String searchName,
+//                                         Model model){
+//        List<Project> projectList = projectRepo.findByNameProjectContaining(searchName);
+//        model.addAttribute("projectList", projectList);
+//        return "/Project/filter";
+//    }
 }
