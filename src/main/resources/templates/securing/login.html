@@ -1,50 +1,47 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"-->
-<!--      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">-->
-<!--<head>-->
-<!--    <title>Авторизация</title>-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
-<!--    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-<!--    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
-<!--</head>-->
-<!--<body class="text-center" style="margin-right: auto; margin-left: auto; margin-top: 200px">-->
-<!--    <div class="row center mt-10">-->
-<!--        <form class="col s12 offset-m4 m4" th:action="@{/login}" method="post">-->
-<!--            <div class="card z-depth-4 ">-->
-<!--                <div class="card-content blue-grey lighten-4">-->
-<!--                    <span class="card-title">Добро пожаловать!</span>-->
-<!--                    <div th:if="${param.error}" class="red-text">-->
-<!--                        Неверный логин и/или пароль.-->
-<!--                    </div>-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Авторизация</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 h-screen">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white">
+            <img class="w-8 h-8 mr-2" src="https://static-cdn.jtvnw.net/emoticons/v2/36/default/dark/1.0" alt="logo">
+            АО "КОМЕТА"
+        </a>
+        <div class="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
+                    Добро пожаловать!
+                </h1>
+                <div th:if="${param.error}" class="text-red-600 mt-2" style="margin-top: 8px">
+                    Неверный логин и/или пароль.
+                </div>
 
-<!--                    <div th:if="${param.logout}" class="red-text">-->
-<!--                        Вы вышли из аккаунта.-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="card-content s12">-->
-<!--                    <div class="input-field">-->
-<!--                        <i class="material-icons prefix pr-3">email</i>-->
-<!--                        <input required name="username" id="input-email" type="email" class="validate"/>-->
-<!--                        <label for="input-email">Эл. почта</label>-->
-<!--                    </div>-->
-
-<!--                    <div class="input-field">-->
-<!--                        <i class="material-icons prefix pr-3">lock</i>-->
-<!--                        <input required name="password" id="password" type="password" class="validate"/>-->
-<!--                        <label for="password">Пароль</label>-->
-<!--                    </div>-->
-
-<!--                    <div class="row" style="margin-bottom: 0px">-->
-<!--                        <input type="submit" value="Авторизация" class="left btn waves-effect waves-light blue ml-5"/>-->
-<!--                        <a th:href="'/registration'" class="right btn waves-effect waves-light green accent-4 mr-4">Создать аккаунт</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</body>-->
-<!--</html>-->
+                <div th:if="${param.logout}" class="text-red-600" style="margin-top: 8px">
+                    Вы вышли из аккаунта.
+                </div>
+                <form class="space-y-4 md:space-y-6" th:action="@{/login}" method="post">
+                    <div>
+                        <label for="input-email" class="block mb-2 text-sm font-medium text-white">Логин</label>
+                        <input name="username" id="input-email" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Логин" required="">
+                    </div>
+                    <div>
+                        <label for="password" class="block mb-2 text-sm font-medium text-white">Пароль</label>
+                        <input type="password" name="password" id="password" placeholder="••••••••" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required="">
+                    </div>
+                    <input type="submit" value="Авторизация" class="cursor-pointer w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-primary-800"/>
+                    <p class="text-sm font-light text-gray-400">
+                        Ещё нет аккаунта? <a th:href="'/user/registration'" class="font-medium hover:underline text-primary-500">Регистрация</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+</body>
+</html>
 

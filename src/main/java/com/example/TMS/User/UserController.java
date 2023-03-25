@@ -6,6 +6,7 @@ import com.example.TMS.Post.Post;
 import com.example.TMS.Post.PostRepo;
 import com.example.TMS.Role.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,8 +25,8 @@ public class UserController {
     PostRepo postRepo;
     @Autowired
     DepartmentRepo departmentRepo;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/all")
     public String viewUser(Model model) {
@@ -40,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String RegView(User user, Model model){
+    public String RegView(userDTO userDTO, Model model){
         Iterable<Post> posts = postRepo.findAll();
         Iterable<Department> departments = departmentRepo.findAll();
 
@@ -50,20 +51,27 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@Valid User user, Model model, BindingResult bindingResult){
+    public String addUser(userDTO userDTO, Model model, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return("/securing/registration");
         }
-        if(userRepo.findByLogin(user.getLogin()) != null){
-
+        if(userRepo.findByLogin(userDTO.getLogin()) != null){
            model.addAttribute("error", "Такой пользователь уже существует!");
            return "/securing/registration";
         }
 
-        //мб тут понадобится Post post1 = postRepo.findById(Long.valueOf(post.split(" ")[0])).orElseThrow();
+        User user = new User();
+        user.setLogin(userDTO.getLogin());
+        user.setSurname(userDTO.getSurname());
+        user.setName(userDTO.getName());
+        user.setMiddleName(userDTO.getMiddleName());
+        user.setDepartment(departmentRepo.findById(userDTO.getDepartment()).orElseThrow());
+        user.setPost(postRepo.findById(userDTO.getPost()).orElseThrow());
+
+        //Post post1 = postRepo.findById(Long.valueOf(post.split(" ")[0])).orElseThrow();
 
         user.setRole(Collections.singleton(Roles.Пользователь));
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setActive(true);
 
         userRepo.save(user);
@@ -72,29 +80,17 @@ public class UserController {
 
     @PostMapping("/edit/{id}")
     public String userEdit(@PathVariable Long id,
-                           @RequestParam String login,
-                           @RequestParam String surname,
-                           @RequestParam String name,
-                           @RequestParam String middleName,
-                           @RequestParam String post,
-                           @RequestParam String department,
-                           @RequestParam String[] roles,
-                           BindingResult result) {
+                           userDTO userDTO,
+                           BindingResult result,
+                           Model model) {
         User user = userRepo.findById(id).orElseThrow();
-        Post post1 = postRepo.findById(Long.valueOf(post.split(" ")[0])).orElseThrow();
-        Department department1 = departmentRepo.findById(Long.valueOf(department.split(" ")[0])).orElseThrow();
 
-        user.setLogin(login);
-        user.setSurname(surname);
-        user.setName(name);
-        user.setMiddleName(middleName);
-        user.setPost(post1);
-        user.setDepartment(department1);
-        user.getRole().clear();
-
-        for(String role: roles) {
-            user.getRole().add(Roles.valueOf(role));
-        }
+        user.setLogin(userDTO.getLogin());
+        user.setSurname(userDTO.getSurname());
+        user.setName(userDTO.getName());
+        user.setMiddleName(userDTO.getMiddleName());
+        user.setDepartment(departmentRepo.findById(userDTO.getDepartment()).orElseThrow());
+        user.setPost(postRepo.findById(userDTO.getPost()).orElseThrow());
 
         if(result.hasErrors())
             return ("/Admin/Users/details");

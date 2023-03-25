@@ -1,5 +1,9 @@
 package com.example.TMS.Role;
 
-public enum Roles {
-    Нет, Администратор, Пользователь;
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Roles implements GrantedAuthority {
+    Администратор, Пользователь;
+    @Override
+    public String getAuthority() { return name(); }
 }
