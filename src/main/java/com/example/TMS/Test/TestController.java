@@ -39,20 +39,19 @@ public class TestController {
         return "/Test/index";
     }
 
-//    @PostMapping("/add")
-//    public String testAdd(@RequestParam String nameTest,
-//                          @RequestParam String status,
-//                          @RequestParam Double version,
-//                          @RequestParam String results,
-//                          @RequestParam String description,
-//                          @RequestParam String project,
-//                          Model model){
-//        Project project1 = projectRepo.findById(Long.valueOf(project.split(" ")[0])).orElseThrow();
-//
-//        Test test = new Test(nameTest, status, version, results, description, project1);
-//        testRepo.save(test);
-//        return ("redirect:/test/all");
-//    }
+    @PostMapping("/add")
+    public String testAdd(@RequestParam String nameTest,
+                          @RequestParam String status,
+                          @RequestParam String results,
+                          @RequestParam String description,
+                          @RequestParam String project,
+                          Model model){
+        Project project1 = projectRepo.findById(Long.valueOf(project.split(" ")[0])).orElseThrow();
+
+        Test test = new Test(nameTest, status, 1.0, results, description, project1);
+        testRepo.save(test);
+        return ("redirect:/test/all");
+    }
 
     @PostMapping("/edit/{id}")
     public String testEdit(Test test, BindingResult result) {

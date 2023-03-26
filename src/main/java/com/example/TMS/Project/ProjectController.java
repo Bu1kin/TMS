@@ -92,18 +92,7 @@ public class ProjectController {
         Project project = projectRepo.findById(id).orElseThrow();
 
         Test test = new Test(nameTest, status, 1.0, results, description, project);
-        //Проект и Версию убрать из конструктора
-//        test.setProject(project);
-//        test.setVersion(1.0);
         testRepo.save(test);
         return ("redirect:/project/testList/{id}");
     }
-
-//    @GetMapping("/filter-contains")
-//    public String projectFilterContains(@RequestParam String searchName,
-//                                         Model model){
-//        List<Project> projectList = projectRepo.findByNameProjectContaining(searchName);
-//        model.addAttribute("projectList", projectList);
-//        return "/Project/filter";
-//    }
 }
