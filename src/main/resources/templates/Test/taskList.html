@@ -84,8 +84,12 @@
                     </tr>
                     <tr th:each="el : ${tasks}" class="border-b bg-gray-700 border-gray-600 hover:bg-gray-600">
                         <th th:text="${el.nameTask}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.priority}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.status}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        <div th:each="el1 : ${el.priority}">
+                            <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        </div>
+                        <div th:each="el1 : ${el.status}">
+                            <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        </div>
                         <th th:text="${el.duration}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <th th:text="${el.description}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <td class="px-6 py-2 text-right">
@@ -114,24 +118,30 @@
                 </button>
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-white">Добавление задачи</h3>
-                    <form class="space-y-6" method="post" th:action="'/test/taskList/' + ${test.getId()}" th:object="${task}">
-                        <div>
+                    <form method="post" th:action="'/test/taskList/' + ${test.getId()}" th:object="${task}">
+                        <div class="mb-6">
                             <label for="nameTask" class="block mb-2 text-sm font-medium text-white">Название задачи</label>
                             <input name="nameTask" id="nameTask" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
                         </div>
-                        <div>
-                            <label for="priority" class="block mb-2 text-sm font-medium text-white">Приоритет</label>
-                            <input name="priority" id="priority" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Приоритет" required>
-                        </div>
-                        <div>
-                            <label for="status" class="block mb-2 text-sm font-medium text-white">Статус</label>
-                            <input name="status" id="status" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Статус" required>
-                        </div>
-                        <div>
+
+                        <label for="priority" class="block mb-2 text-sm font-medium text-white">Приоритет</label>
+                        <select id="priority" required name="priority" class="mb-6 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+                            <div th:each="el : ${priority}">
+                                <option th:value="${el}" th:text="${el.displayedName()}"></option>
+                            </div>
+                        </select>
+                        <label for="status" class="block mb-2 text-sm font-medium text-white">Статус</label>
+                        <select id="status" required name="status" class="mb-6 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+                            <div th:each="el : ${status}">
+                                <option th:value="${el}" th:text="${el.displayedName()}"></option>
+                            </div>
+                        </select>
+
+                        <div class="mb-6">
                             <label for="duration" class="block mb-2 text-sm font-medium text-white">Длительность</label>
                             <input name="duration" id="duration" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Длительность" required>
                         </div>
-                        <div>
+                        <div class="mb-6">
                             <label for="description" class="block mb-2 text-sm font-medium text-white">Описание</label>
                             <input name="description" id="description" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Описание" required>
                         </div>

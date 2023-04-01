@@ -35,7 +35,7 @@ CREATE TABLE `department` (
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'тест'),(2,'тест2');
+INSERT INTO `department` VALUES (1,'Тест'),(2,'тест 2');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +50,7 @@ CREATE TABLE `post` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `post_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,8 +59,32 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Тестировщик');
+INSERT INTO `post` VALUES (1,'Тестировщик II разряда'),(2,'лол');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `priority`
+--
+
+DROP TABLE IF EXISTS `priority`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `priority` (
+  `id_task` bigint(20) NOT NULL,
+  `priority` varchar(255) DEFAULT NULL,
+  KEY `FK4jes3y8g3m2hr83eb5mlc1v4o` (`id_task`),
+  CONSTRAINT `FK4jes3y8g3m2hr83eb5mlc1v4o` FOREIGN KEY (`id_task`) REFERENCES `task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `priority`
+--
+
+LOCK TABLES `priority` WRITE;
+/*!40000 ALTER TABLE `priority` DISABLE KEYS */;
+/*!40000 ALTER TABLE `priority` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -79,7 +103,7 @@ CREATE TABLE `project` (
   PRIMARY KEY (`id`),
   KEY `FKoeqpa0e9m6h83j4r7miy3eksw` (`user_id`),
   CONSTRAINT `FKoeqpa0e9m6h83j4r7miy3eksw` FOREIGN KEY (`user_id`) REFERENCES `user_` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +112,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES (1,NULL,'Описание проекта 2','Проект 1',NULL),(2,'2023-03-28 12:43:59.325000','Описание проекта 2','проект 2',NULL);
+INSERT INTO `project` VALUES (2,NULL,'Аххаахахаахаsfa','Тестовый проект №1',NULL),(3,NULL,'Тестовый проект №2','Проект №2',NULL),(4,'2023-03-30 16:43:57.853000','Не хахаахах(','Проект №3.1',NULL);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,6 +142,55 @@ INSERT INTO `role` VALUES (1,'Администратор');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `status_task`
+--
+
+DROP TABLE IF EXISTS `status_task`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `status_task` (
+  `id_task` bigint(20) NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  KEY `FKb6i38ypc9u9g83n6ma1kslc4v` (`id_task`),
+  CONSTRAINT `FKb6i38ypc9u9g83n6ma1kslc4v` FOREIGN KEY (`id_task`) REFERENCES `task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `status_task`
+--
+
+LOCK TABLES `status_task` WRITE;
+/*!40000 ALTER TABLE `status_task` DISABLE KEYS */;
+/*!40000 ALTER TABLE `status_task` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `status_test`
+--
+
+DROP TABLE IF EXISTS `status_test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `status_test` (
+  `id_test` bigint(20) NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  KEY `FKai7h7xf3d02ys182heber2c2d` (`id_test`),
+  CONSTRAINT `FKai7h7xf3d02ys182heber2c2d` FOREIGN KEY (`id_test`) REFERENCES `test` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `status_test`
+--
+
+LOCK TABLES `status_test` WRITE;
+/*!40000 ALTER TABLE `status_test` DISABLE KEYS */;
+INSERT INTO `status_test` VALUES (2,'Cancelled'),(4,'NotPassed'),(5,'Passed');
+/*!40000 ALTER TABLE `status_test` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `task`
 --
 
@@ -135,7 +208,7 @@ CREATE TABLE `task` (
   PRIMARY KEY (`id`),
   KEY `FKojhuohbslrwalcmrql2wvad8m` (`test_id`),
   CONSTRAINT `FKojhuohbslrwalcmrql2wvad8m` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +217,7 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` VALUES (1,'описание задачи','15 минут','Нажать на кнопку добавления','Высокий','пройден',1);
+INSERT INTO `task` VALUES (2,'Добавление','15 минут','нажать кнопку','Высокий','выполнен',2);
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +244,7 @@ CREATE TABLE `test` (
   KEY `FKtq03ih19l972aes51frx2s79i` (`user_id`),
   CONSTRAINT `FKael9sac0jyge72osrwuou49i1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
   CONSTRAINT `FKtq03ih19l972aes51frx2s79i` FOREIGN KEY (`user_id`) REFERENCES `user_` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +253,7 @@ CREATE TABLE `test` (
 
 LOCK TABLES `test` WRITE;
 /*!40000 ALTER TABLE `test` DISABLE KEYS */;
-INSERT INTO `test` VALUES (1,NULL,NULL,'Тестирование функции добавления теста в проект','Тест добавления теста','Успешное добавление','Выполнен',1,1,NULL);
+INSERT INTO `test` VALUES (2,NULL,NULL,'qew','qew','qew','выполнен',1,2,NULL),(4,NULL,NULL,'qwe','qwe','qew',NULL,1,2,NULL),(5,NULL,NULL,'qew','qwe','qwe',NULL,1,2,NULL);
 /*!40000 ALTER TABLE `test` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +289,7 @@ CREATE TABLE `user_` (
 
 LOCK TABLES `user_` WRITE;
 /*!40000 ALTER TABLE `user_` DISABLE KEYS */;
-INSERT INTO `user_` VALUES (1,_binary '','qwe','Игоревич','Владимир','$2a$08$F.I535hI7QwWuUbKI1o1ce4rvmvyMhwJDzayyr1pfprLG0zqgP.6K',NULL,'Малахов',2,1);
+INSERT INTO `user_` VALUES (1,_binary '','qwe','qweqew','qwe','$2a$08$OZWbFS7VCn4vCECXXnCkMOyo3SV2dqZ3dmSXouaFt2k6pjVqRRhXS',NULL,'qwe',1,2);
 /*!40000 ALTER TABLE `user_` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -229,4 +302,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-28 12:47:09
+-- Dump completed on 2023-03-30 17:12:26

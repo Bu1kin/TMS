@@ -1,8 +1,11 @@
 package com.example.TMS.Task;
 
+import com.example.TMS.Enums.Priority;
+import com.example.TMS.Enums.Status;
 import com.example.TMS.Test.Test;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Task {
@@ -10,14 +13,20 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nameTask;
-    private String priority;
-    private String status;
+    @ElementCollection(targetClass = Priority.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "priority", joinColumns = @JoinColumn(name = "id_task"))
+    @Enumerated(EnumType.STRING)
+    private Set<Priority> priority;
+    @ElementCollection(targetClass = Status.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "statusTask", joinColumns = @JoinColumn(name = "id_task"))
+    @Enumerated(EnumType.STRING)
+    private Set<Status> status;
     private String duration;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Test test;
 
-    public Task(String nameTask, String priority, String status, String duration, String description, Test test) {
+    public Task(String nameTask, Set<Priority> priority, Set<Status> status, String duration, String description, Test test) {
         this.nameTask = nameTask;
         this.priority = priority;
         this.status = status;
@@ -46,19 +55,19 @@ public class Task {
         this.nameTask = nameTask;
     }
 
-    public String getPriority() {
+    public Set<Priority> getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Set<Priority> priority) {
         this.priority = priority;
     }
 
-    public String getStatus() {
+    public Set<Status> getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Set<Status> status) {
         this.status = status;
     }
 

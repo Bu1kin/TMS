@@ -1,5 +1,7 @@
 package com.example.TMS.Task;
 
+import com.example.TMS.Enums.Priority;
+import com.example.TMS.Enums.Status;
 import com.example.TMS.Test.Test;
 import com.example.TMS.Test.TestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/task")
@@ -26,13 +29,15 @@ public class TaskController {
 
         model.addAttribute("tasks", tasks);
         model.addAttribute("tests", tests);
+        model.addAttribute("priority", Priority.values());
+        model.addAttribute("status", Status.values());
         return "/Task/index";
     }
 
     @PostMapping("/add")
     public String taskAdd(@RequestParam String nameTask,
-                          @RequestParam String priority,
-                          @RequestParam String status,
+                          @RequestParam Set<Priority> priority,
+                          @RequestParam Set<Status> status,
                           @RequestParam String duration,
                           @RequestParam String description,
                           @RequestParam String test,
@@ -48,6 +53,9 @@ public class TaskController {
     public String taskEdit(Task task, BindingResult result) {
         if(result.hasErrors())
             return ("/Task/details");
+        Task tempTask = taskRepo.findById(task.getId()).orElseThrow();
+        task.setTest(tempTask.getTest());
+
         taskRepo.save(task);
         return("redirect:/task/all");
     }
@@ -65,6 +73,8 @@ public class TaskController {
 
         model.addAttribute("task", task);
         model.addAttribute("tests", tests);
+        model.addAttribute("priority", Priority.values());
+        model.addAttribute("status", Status.values());
         return "/Task/details";
     }
 
@@ -72,7 +82,12 @@ public class TaskController {
     public String taskFilterContains(@RequestParam String searchName,
                                          Model model){
         List<Task> tasks = taskRepo.findByNameTaskContaining(searchName);
+        Iterable<Test> tests = testRepo.findAll();
+
         model.addAttribute("tasks", tasks);
+        model.addAttribute("tests", tests);
+        model.addAttribute("priority", Priority.values());
+        model.addAttribute("status", Status.values());
         return "/Task/filter";
     }
 

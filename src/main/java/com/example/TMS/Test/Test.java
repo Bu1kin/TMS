@@ -1,5 +1,6 @@
 package com.example.TMS.Test;
 
+import com.example.TMS.Enums.Status;
 import com.example.TMS.Project.Project;
 import com.example.TMS.Task.Task;
 import com.example.TMS.User.User;
@@ -7,6 +8,7 @@ import com.example.TMS.User.User;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Test {
@@ -14,21 +16,22 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nameTest;
-    private String status;
+    @ElementCollection(targetClass = Status.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "statusTest", joinColumns = @JoinColumn(name = "id_test"))
+    @Enumerated(EnumType.STRING)
+    private Set<Status> status;
     private Double version;
-//    private Date dateStart;
-//    private Date dateEnd;
     private String results;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Project project;
 
     @OneToMany(mappedBy = "test", fetch = FetchType.LAZY)
     private Collection<Task> tasks;
 
-    public Test(String nameTest, String status, Double version, String results, String description, Project project) {
+    public Test(String nameTest, Set<Status> status, Double version, String results, String description, Project project) {
         this.nameTest = nameTest;
         this.status = status;
         this.version = version;
@@ -57,11 +60,11 @@ public class Test {
         this.nameTest = nameTest;
     }
 
-    public String getStatus() {
+    public Set<Status> getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Set<Status> status) {
         this.status = status;
     }
 
@@ -72,22 +75,6 @@ public class Test {
     public void setVersion(Double version) {
         this.version = version;
     }
-
-//    public Date getDateStart() {
-//        return dateStart;
-//    }
-//
-//    public void setDateStart(Date dateStart) {
-//        this.dateStart = dateStart;
-//    }
-//
-//    public Date getDateEnd() {
-//        return dateEnd;
-//    }
-//
-//    public void setDateEnd(Date dateEnd) {
-//        this.dateEnd = dateEnd;
-//    }
 
     public String getResults() {
         return results;

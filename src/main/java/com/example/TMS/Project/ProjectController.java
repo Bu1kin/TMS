@@ -1,5 +1,6 @@
 package com.example.TMS.Project;
 
+import com.example.TMS.Enums.Status;
 import com.example.TMS.Test.Test;
 import com.example.TMS.Test.TestRepo;
 import com.example.TMS.User.User;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/project")
@@ -18,26 +20,21 @@ public class ProjectController {
     @Autowired
     ProjectRepo projectRepo;
     @Autowired
-    UserRepo userRepo;
-    @Autowired
     TestRepo testRepo;
 
     @GetMapping("/all")
     public String viewProject(Model model) {
         Iterable<Project> projects = projectRepo.findAll();
-        Iterable<User> users = userRepo.findAll();
 
         model.addAttribute("projects", projects);
-        model.addAttribute("users", users);
+        model.addAttribute("statuses", Status.values());
         return "/Project/index";
     }
 
     @PostMapping("/add")
     public String projectAdd(@RequestParam String nameProject,
                              @RequestParam String description,
-//                             @RequestParam String user,
                              Model model){
-        //User user1 = userRepo.findById(Long.valueOf(user.split(" ")[0])).orElseThrow();
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
 
@@ -50,7 +47,8 @@ public class ProjectController {
     public String projectEdit(Project project, BindingResult result) {
         if(result.hasErrors())
             return ("/Project/details");
-        //а тут надо будет менять?
+        Project projectTemp = projectRepo.findById(project.getId()).orElseThrow();
+        project.setDateCreation(projectTemp.getDateCreation());
         projectRepo.save(project);
         return("redirect:/project/all");
     }
@@ -64,11 +62,8 @@ public class ProjectController {
     @GetMapping("/details/{id}")
     public String projectDetails(Model model, @PathVariable Long id) {
         Project project = projectRepo.findById(id).orElseThrow();
-        Iterable<User> users = userRepo.findAll();
 
         model.addAttribute("project", project);
-        model.addAttribute("users", users);
-
         return "/Project/details";
     }
 
@@ -79,19 +74,21 @@ public class ProjectController {
 
         model.addAttribute("project", project);
         model.addAttribute("tests", tests);
+        model.addAttribute("status", Status.values());
         return "/Project/testList";
     }
 
     @PostMapping("/testList/{id}")
     public String testAdd(@PathVariable Long id,
                           @RequestParam String nameTest,
-                          @RequestParam String status,
+                          @RequestParam Set<Status> status,
                           @RequestParam String results,
                           @RequestParam String description,
                           Model model){
         Project project = projectRepo.findById(id).orElseThrow();
 
         Test test = new Test(nameTest, status, 1.0, results, description, project);
+
         testRepo.save(test);
         return ("redirect:/project/testList/{id}");
     }

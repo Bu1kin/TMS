@@ -38,13 +38,13 @@
                                 <li>
                                     <div class="flex items-center p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                                         <input type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <a href="/test/sortStatusAsc" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Приоритет (возр.)</a>
+                                        <a href="/test/sortStatusAsc" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Статус (возр.)</a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="flex items-center p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                                         <input type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <a href="/test/sortStatusDesc" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Приоритет (убыв.)</a>
+                                        <a href="/test/sortStatusDesc" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Статус (убыв.)</a>
                                     </div>
                                 </li>
                             </ul>
@@ -78,7 +78,9 @@
                     <tbody>
                     <tr th:each="el : ${tests}" class="border-b bg-gray-700 border-gray-600 hover:bg-gray-600">
                         <th th:text="${el.nameTest}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.status}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        <div th:each="el1 : ${el.status}">
+                            <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        </div>
                         <th th:text="${el.version}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <th th:text="${el.results}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <th th:text="${el.description}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
@@ -108,20 +110,22 @@
                 </button>
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-white">Добавление теста</h3>
-                    <form class="space-y-6" method="post" th:action="'/test/add'" th:object="${test}">
-                        <div>
+                    <form method="post" th:action="'/test/add'" th:object="${test}">
+                        <div class="mb-6">
                             <label for="nameTest" class="block mb-2 text-sm font-medium text-white">Название теста</label>
                             <input name="nameTest" id="nameTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
                         </div>
-                        <div>
+                        <div class="mb-6">
                             <label for="descTest" class="block mb-2 text-sm font-medium text-white">Описание</label>
                             <input name="description" id="descTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Описание" required>
                         </div>
-                        <div>
-                            <label for="statusTest" class="block mb-2 text-sm font-medium text-white">Статус</label>
-                            <input name="status" id="statusTest" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Статус" required>
-                        </div>
-                        <div>
+                        <label for="statusTest" class="block mb-2 text-sm font-medium text-white">Статус</label>
+                        <select id="statusTest" required name="status" class="mb-6 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+                            <div th:each="el : ${status}">
+                                <option th:value="${el}" th:text="${el.displayedName()}"></option>
+                            </div>
+                        </select>
+                        <div class="mb-6">
                             <label for="results" class="block mb-2 text-sm font-medium text-white">Результаты</label>
                             <input name="results" id="results" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Результаты" required>
                         </div>

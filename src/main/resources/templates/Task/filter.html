@@ -34,15 +34,15 @@
                         <div id="dropdownRadio" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
                             <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
                                 <li>
-                                    <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="filter-radio-example-1" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="filter-radio-example-1" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last day</label>
+                                    <div class="flex items-center p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <input type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <a href="/task/sortPriorityAsc" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Приоритет (возр.)</a>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input checked="" id="filter-radio-example-2" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="filter-radio-example-2" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 7 days</label>
+                                    <div class="flex items-center p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <input type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <a href="/task/sortPriorityDesc" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Приоритет (убыв.)</a>
                                     </div>
                                 </li>
                             </ul>
@@ -60,7 +60,6 @@
                 </div>
             </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <!--                тут был код выше (строка поиска, сортировка, кнопка добавления)-->
                 <table class="w-full text-sm text-left text-gray-400">
                     <thead class="text-xs uppercase bg-gray-500 text-gray-200">
                     <tr>
@@ -77,8 +76,12 @@
                     <tbody>
                     <tr th:each="el : ${tasks}" class="border-b bg-gray-700 border-gray-600 hover:bg-gray-600">
                         <th th:text="${el.nameTask}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.priority}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.status}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        <div th:each="el1 : ${el.priority}">
+                            <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        </div>
+                        <div th:each="el1 : ${el.status}">
+                            <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        </div>
                         <th th:text="${el.duration}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <th th:text="${el.description}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <td class="px-6 py-2 text-right">
@@ -107,28 +110,37 @@
                 </button>
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-white">Добавление задачи</h3>
-                    <form class="space-y-6" method="post" th:action="'/task/add'" th:object="${task}">
-                        <div>
+                    <form method="post" th:action="'/task/add'" th:object="${task}">
+                        <div class="mb-6">
                             <label for="nameTask" class="block mb-2 text-sm font-medium text-white">Название задачи</label>
                             <input name="nameTask" id="nameTask" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Название" required>
                         </div>
-                        <div>
-                            <label for="priority" class="block mb-2 text-sm font-medium text-white">Приоритет</label>
-                            <input name="priority" id="priority" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Приоритет" required>
-                        </div>
-                        <div>
-                            <label for="status" class="block mb-2 text-sm font-medium text-white">Статус</label>
-                            <input name="status" id="status" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Статус" required>
-                        </div>
-                        <div>
+                        <label for="priority" class="block mb-2 text-sm font-medium text-white">Приоритет</label>
+                        <select id="priority" required name="priority" class="mb-6 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+                            <div th:each="el : ${priority}">
+                                <option th:value="${el}" th:text="${el.displayedName()}"></option>
+                            </div>
+                        </select>
+                        <label for="status" class="block mb-2 text-sm font-medium text-white">Статус</label>
+                        <select id="status" required name="status" class="mb-6 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+                            <div th:each="el : ${status}">
+                                <option th:value="${el}" th:text="${el.displayedName()}"></option>
+                            </div>
+                        </select>
+                        <div class="mb-6">
                             <label for="duration" class="block mb-2 text-sm font-medium text-white">Длительность</label>
                             <input name="duration" id="duration" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Длительность" required>
                         </div>
-                        <div>
+                        <div class="mb-6">
                             <label for="description" class="block mb-2 text-sm font-medium text-white">Описание</label>
                             <input name="description" id="description" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Описание" required>
                         </div>
-<!--                        поле Select для выбора Теста-->
+                        <label for="test" class="block mb-2 text-sm font-medium text-white">Выберите тест</label>
+                        <select id="test" required name="test" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" style="margin-top: 10px">
+                            <div th:each="el : ${tests}">
+                                <option th:value="${el.id}" th:text="${el.nameTest}"></option>
+                            </div>
+                        </select>
                         <div class="flex items-center pt-2 space-x-2 rounded-b" style="margin-top: 12px">
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Добавить</button>
                             <button data-modal-hide="modal1" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Отмена</button>

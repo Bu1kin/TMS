@@ -1,5 +1,7 @@
 package com.example.TMS.Test;
 
+import com.example.TMS.Enums.Priority;
+import com.example.TMS.Enums.Status;
 import com.example.TMS.Project.Project;
 import com.example.TMS.Project.ProjectRepo;
 import com.example.TMS.Task.Task;
@@ -13,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/test")
@@ -31,18 +35,17 @@ public class TestController {
     @GetMapping("/all")
     public String viewTest(Model model) {
         Iterable<Test> tests = testRepo.findAll();
-        Iterable<User> users = userRepo.findAll();
         Iterable<Project> projects = projectRepo.findAll();
 
         model.addAttribute("tests", tests);
-        model.addAttribute("users", users);
         model.addAttribute("projects", projects);
+        model.addAttribute("status", Status.values());
         return "/Test/index";
     }
 
     @PostMapping("/add")
     public String testAdd(@RequestParam String nameTest,
-                          @RequestParam String status,
+                          @RequestParam Set<Status> status,
                           @RequestParam String results,
                           @RequestParam String description,
                           @RequestParam String project,
@@ -55,12 +58,18 @@ public class TestController {
     }
 
     @PostMapping("/edit/{id}")
-    public String testEdit(Test test, BindingResult result) {
+    public String testEdit(Test test, @RequestParam String[] status, BindingResult result) {
         if(result.hasErrors())
             return ("/Test/details");
         Test testTemp = testRepo.findById(test.getId()).orElseThrow();
         test.setVersion(1.0);
         test.setProject(testTemp.getProject());
+        test.getStatus().clear();
+
+        for(String statusTemp: status) {
+            test.getStatus().add(Status.valueOf(statusTemp));
+        }
+
         testRepo.save(test);
         return("redirect:/test/all");
     }
@@ -74,12 +83,11 @@ public class TestController {
     @GetMapping("/details/{id}")
     public String testDetails(Model model, @PathVariable Long id) {
         Test test = testRepo.findById(id).orElseThrow();
-        Iterable<User> users = userRepo.findAll();
         Iterable<Project> projects = projectRepo.findAll();
 
         model.addAttribute("test", test);
-        model.addAttribute("users", users);
         model.addAttribute("projects", projects);
+        model.addAttribute("status", Status.values());
         return "/Test/details";
     }
 
@@ -90,14 +98,16 @@ public class TestController {
 
         model.addAttribute("test", test);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("priority", Priority.values());
+        model.addAttribute("status", Status.values());
         return "/Test/taskList";
     }
 
     @PostMapping("/taskList/{id}")
     public String taskAdd(@PathVariable Long id,
                           @RequestParam String nameTask,
-                          @RequestParam String priority,
-                          @RequestParam String status,
+                          @RequestParam Set<Priority> priority,
+                          @RequestParam Set<Status> status,
                           @RequestParam String duration,
                           @RequestParam String description,
                           Model model){
@@ -132,7 +142,11 @@ public class TestController {
     public String testFilterContains(@RequestParam String searchName,
                                          Model model){
         List<Test> tests = testRepo.findByNameTestContaining(searchName);
+        Iterable<Project> projects = projectRepo.findAll();
+
         model.addAttribute("tests", tests);
+        model.addAttribute("projects", projects);
+        model.addAttribute("status", Status.values());
         return "/Test/filter";
     }
 

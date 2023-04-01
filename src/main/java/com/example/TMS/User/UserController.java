@@ -68,8 +68,6 @@ public class UserController {
         user.setDepartment(departmentRepo.findById(userDTO.getDepartment()).orElseThrow());
         user.setPost(postRepo.findById(userDTO.getPost()).orElseThrow());
 
-        //Post post1 = postRepo.findById(Long.valueOf(post.split(" ")[0])).orElseThrow();
-
         user.setRole(Collections.singleton(Roles.Пользователь));
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setActive(true);
