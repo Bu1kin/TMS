@@ -15,10 +15,10 @@ public class Project {
     private String nameProject;
     private String description;
     private Date dateCreation;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<Test> tests;
 
     public Project(String nameProject, String description, Date dateCreation) {

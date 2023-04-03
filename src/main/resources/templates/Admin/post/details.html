@@ -14,10 +14,9 @@
                         <label for="postName" class="block mb-2 text-sm font-medium text-white">Название должности</label>
                         <input name="postName" th:value="${el.getPostName()}" type="text" id="postName" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Название" required>
                     </div>
-                    <!--                    список пользователей для этой роли-->
                     <div class="mb-6">
                         <input type="submit" value="Изменить" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"/>
-                        <a data-modal-target="modal1" data-modal-toggle="modal1" class="text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Удалить</a>
+                        <a data-modal-target="modal1" data-modal-toggle="modal1" class="cursor-pointer text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Удалить</a>
                         <a th:href="'/post/all'" class="text-white bg-gray-500 hover:bg-gray-400 focus:ring-2 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Назад</a>
                     </div>
 

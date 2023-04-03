@@ -91,7 +91,10 @@
                             <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         </div>
                         <th th:text="${el.duration}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.description}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        <div th:if="${!el.description.isEmpty()}">
+                            <th th:text="${el.description}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        </div>
+                        <th th:if="${el.description.isEmpty()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-gray-400 italic">Нет описания</th>
                         <td class="px-6 py-2 text-right">
                             <a th:href="'/task/details/' + ${el.getId()}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-lg hover:bg-gray-400">
                                 <svg aria-hidden="true" class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +146,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="description" class="block mb-2 text-sm font-medium text-white">Описание</label>
-                            <input name="description" id="description" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Описание" required>
+                            <input name="description" id="description" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Описание">
                         </div>
                         <div class="flex items-center pt-2 space-x-2 rounded-b" style="margin-top: 12px">
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Добавить</button>

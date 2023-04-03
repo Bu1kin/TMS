@@ -23,7 +23,7 @@ public class Task {
     private Set<Status> status;
     private String duration;
     private String description;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Test test;
 
     public Task(String nameTask, Set<Priority> priority, Set<Status> status, String duration, String description, Test test) {

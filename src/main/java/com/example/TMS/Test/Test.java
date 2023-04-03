@@ -23,12 +23,12 @@ public class Test {
     private Double version;
     private String results;
     private String description;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Project project;
 
-    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<Task> tasks;
 
     public Test(String nameTest, Set<Status> status, Double version, String results, String description, Project project) {

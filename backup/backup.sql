@@ -26,7 +26,7 @@ CREATE TABLE `department` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name_department` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `department` (
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'Тест'),(2,'тест 2');
+INSERT INTO `department` VALUES (1,'СОКБ 41/2');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +50,7 @@ CREATE TABLE `post` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `post_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Тестировщик II разряда'),(2,'лол');
+INSERT INTO `post` VALUES (1,'Тестировщик II разряда');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,7 @@ CREATE TABLE `project` (
   PRIMARY KEY (`id`),
   KEY `FKoeqpa0e9m6h83j4r7miy3eksw` (`user_id`),
   CONSTRAINT `FKoeqpa0e9m6h83j4r7miy3eksw` FOREIGN KEY (`user_id`) REFERENCES `user_` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +112,6 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES (2,NULL,'Аххаахахаахаsfa','Тестовый проект №1',NULL),(3,NULL,'Тестовый проект №2','Проект №2',NULL),(4,'2023-03-30 16:43:57.853000','Не хахаахах(','Проект №3.1',NULL);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +136,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'Администратор');
+INSERT INTO `role` VALUES (1,'Администратор'),(2,'Пользователь');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +185,6 @@ CREATE TABLE `status_test` (
 
 LOCK TABLES `status_test` WRITE;
 /*!40000 ALTER TABLE `status_test` DISABLE KEYS */;
-INSERT INTO `status_test` VALUES (2,'Cancelled'),(4,'NotPassed'),(5,'Passed');
 /*!40000 ALTER TABLE `status_test` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +206,7 @@ CREATE TABLE `task` (
   PRIMARY KEY (`id`),
   KEY `FKojhuohbslrwalcmrql2wvad8m` (`test_id`),
   CONSTRAINT `FKojhuohbslrwalcmrql2wvad8m` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +215,6 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` VALUES (2,'Добавление','15 минут','нажать кнопку','Высокий','выполнен',2);
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +241,7 @@ CREATE TABLE `test` (
   KEY `FKtq03ih19l972aes51frx2s79i` (`user_id`),
   CONSTRAINT `FKael9sac0jyge72osrwuou49i1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
   CONSTRAINT `FKtq03ih19l972aes51frx2s79i` FOREIGN KEY (`user_id`) REFERENCES `user_` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +250,6 @@ CREATE TABLE `test` (
 
 LOCK TABLES `test` WRITE;
 /*!40000 ALTER TABLE `test` DISABLE KEYS */;
-INSERT INTO `test` VALUES (2,NULL,NULL,'qew','qew','qew','выполнен',1,2,NULL),(4,NULL,NULL,'qwe','qwe','qew',NULL,1,2,NULL),(5,NULL,NULL,'qew','qwe','qwe',NULL,1,2,NULL);
 /*!40000 ALTER TABLE `test` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,7 +276,7 @@ CREATE TABLE `user_` (
   KEY `FKhac67okrxd0f5kll9r04g7wj6` (`post_id`),
   CONSTRAINT `FKddpl1ql9g0w48wfam14hjr713` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
   CONSTRAINT `FKhac67okrxd0f5kll9r04g7wj6` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +285,7 @@ CREATE TABLE `user_` (
 
 LOCK TABLES `user_` WRITE;
 /*!40000 ALTER TABLE `user_` DISABLE KEYS */;
-INSERT INTO `user_` VALUES (1,_binary '','qwe','qweqew','qwe','$2a$08$OZWbFS7VCn4vCECXXnCkMOyo3SV2dqZ3dmSXouaFt2k6pjVqRRhXS',NULL,'qwe',1,2);
+INSERT INTO `user_` VALUES (1,_binary '','qwe','Иванович','Иван','$2a$08$OZWbFS7VCn4vCECXXnCkMOyo3SV2dqZ3dmSXouaFt2k6pjVqRRhXS',NULL,'Иванов',1,1),(2,_binary '','user1','Игоревич','Владимир','$2a$08$1tIQDM0QIoCI2dRz.524f.IPHQPUI420k1pHhKIrDjqKKTwSguhYG',NULL,'Малахов',1,1);
 /*!40000 ALTER TABLE `user_` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -302,4 +298,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-30 17:12:26
+-- Dump completed on 2023-04-03  0:04:34
