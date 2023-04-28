@@ -21,26 +21,21 @@ public class Department {
     public Department() {
 
     }
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
     public String getNameDepartment() {
         return nameDepartment;
     }
-
     public void setNameDepartment(String nameDepartment) {
         this.nameDepartment = nameDepartment;
     }
-
     public Collection<User> getUsers() {
         return users;
     }
-
     public void setUsers(Collection<User> users) {
         this.users = users;
     }

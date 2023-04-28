@@ -80,7 +80,7 @@
                             <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         </div>
                         <th th:text="${el.version}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.results}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        <th th:text="${el.getResults()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <div th:if="${!el.description.isEmpty()}">
                             <th th:text="${el.description}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         </div>

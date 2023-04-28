@@ -35,7 +35,7 @@ CREATE TABLE `department` (
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'СОКБ 41/2');
+INSERT INTO `department` VALUES (1,'ОКБ-41/2');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Тестировщик II разряда');
+INSERT INTO `post` VALUES (1,'Инженер II разряда');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,7 @@ CREATE TABLE `project` (
   PRIMARY KEY (`id`),
   KEY `FKoeqpa0e9m6h83j4r7miy3eksw` (`user_id`),
   CONSTRAINT `FKoeqpa0e9m6h83j4r7miy3eksw` FOREIGN KEY (`user_id`) REFERENCES `user_` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +136,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'Администратор'),(2,'Пользователь');
+INSERT INTO `role` VALUES (1,'Администратор');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,13 +200,11 @@ CREATE TABLE `task` (
   `description` varchar(255) DEFAULT NULL,
   `duration` varchar(255) DEFAULT NULL,
   `name_task` varchar(255) DEFAULT NULL,
-  `priority` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
   `test_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKojhuohbslrwalcmrql2wvad8m` (`test_id`),
   CONSTRAINT `FKojhuohbslrwalcmrql2wvad8m` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,12 +225,9 @@ DROP TABLE IF EXISTS `test`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `test` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `date_end` datetime(6) DEFAULT NULL,
-  `date_start` datetime(6) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `name_test` varchar(255) DEFAULT NULL,
-  `results` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `results` double DEFAULT NULL,
   `version` double DEFAULT NULL,
   `project_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
@@ -241,7 +236,7 @@ CREATE TABLE `test` (
   KEY `FKtq03ih19l972aes51frx2s79i` (`user_id`),
   CONSTRAINT `FKael9sac0jyge72osrwuou49i1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
   CONSTRAINT `FKtq03ih19l972aes51frx2s79i` FOREIGN KEY (`user_id`) REFERENCES `user_` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,7 +262,6 @@ CREATE TABLE `user_` (
   `middle_name` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `post` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
   `department_id` bigint(20) DEFAULT NULL,
   `post_id` bigint(20) DEFAULT NULL,
@@ -276,7 +270,7 @@ CREATE TABLE `user_` (
   KEY `FKhac67okrxd0f5kll9r04g7wj6` (`post_id`),
   CONSTRAINT `FKddpl1ql9g0w48wfam14hjr713` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
   CONSTRAINT `FKhac67okrxd0f5kll9r04g7wj6` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +279,7 @@ CREATE TABLE `user_` (
 
 LOCK TABLES `user_` WRITE;
 /*!40000 ALTER TABLE `user_` DISABLE KEYS */;
-INSERT INTO `user_` VALUES (1,_binary '','qwe','Иванович','Иван','$2a$08$OZWbFS7VCn4vCECXXnCkMOyo3SV2dqZ3dmSXouaFt2k6pjVqRRhXS',NULL,'Иванов',1,1),(2,_binary '','user1','Игоревич','Владимир','$2a$08$1tIQDM0QIoCI2dRz.524f.IPHQPUI420k1pHhKIrDjqKKTwSguhYG',NULL,'Малахов',1,1);
+INSERT INTO `user_` VALUES (1,_binary '','admin','Игоревич','Владимир','$2a$08$wrzug9S9zjkxaEcAaVmBuef1ynk/1ipWqfE/UXSjT5amTKJxDf36q','Малахов',1,1);
 /*!40000 ALTER TABLE `user_` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -298,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-03  0:04:34
+-- Dump completed on 2023-04-27  0:48:39

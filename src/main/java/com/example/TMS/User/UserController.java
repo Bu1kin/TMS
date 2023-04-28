@@ -53,11 +53,23 @@ public class UserController {
     @PostMapping("/registration")
     public String addUser(userDTO userDTO, Model model, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
+            Iterable<Post> posts = postRepo.findAll();
+            Iterable<Department> departments = departmentRepo.findAll();
+
+            model.addAttribute("posts", posts);
+            model.addAttribute("departments", departments);
+
             return("/securing/registration");
         }
         if(userRepo.findByLogin(userDTO.getLogin()) != null){
-           model.addAttribute("error", "Такой пользователь уже существует!");
-           return "/securing/registration";
+            Iterable<Post> posts = postRepo.findAll();
+            Iterable<Department> departments = departmentRepo.findAll();
+
+            model.addAttribute("posts", posts);
+            model.addAttribute("departments", departments);
+
+            model.addAttribute("error", "Такой пользователь уже существует!");
+            return "/securing/registration";
         }
 
         User user = new User();

@@ -8,6 +8,7 @@ import com.example.TMS.Task.Task;
 import com.example.TMS.Task.TaskRepo;
 import com.example.TMS.User.User;
 import com.example.TMS.User.UserRepo;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Controller
 @RequestMapping("/test")
@@ -46,7 +45,7 @@ public class TestController {
     @PostMapping("/add")
     public String testAdd(@RequestParam String nameTest,
                           @RequestParam Set<Status> status,
-                          @RequestParam String results,
+                          @RequestParam Double results,
                           @RequestParam String description,
                           @RequestParam String project,
                           Model model){
@@ -114,7 +113,9 @@ public class TestController {
         Test test = testRepo.findById(id).orElseThrow();
 
         Task task = new Task(nameTask, priority, status, duration, description, test);
+
         taskRepo.save(task);
+
         return ("redirect:/test/taskList/{id}");
     }
 

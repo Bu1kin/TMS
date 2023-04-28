@@ -4,6 +4,7 @@ import com.example.TMS.Enums.Status;
 import com.example.TMS.Project.Project;
 import com.example.TMS.Task.Task;
 import com.example.TMS.User.User;
+import org.apache.commons.math3.util.Precision;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -21,21 +22,19 @@ public class Test {
     @Enumerated(EnumType.STRING)
     private Set<Status> status;
     private Double version;
-    private String results;
     private String description;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private User user;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Project project;
 
-    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY, cascade = CascadeType.DETACH, orphanRemoval = true)
     private Collection<Task> tasks;
 
-    public Test(String nameTest, Set<Status> status, Double version, String results, String description, Project project) {
+    public Test(String nameTest, Set<Status> status, Double version, Double results, String description, Project project) {
         this.nameTest = nameTest;
         this.status = status;
         this.version = version;
-        this.results = results;
         this.description = description;
         this.project = project;
     }
@@ -76,12 +75,25 @@ public class Test {
         this.version = version;
     }
 
-    public String getResults() {
-        return results;
-    }
+    public Double getResults() {
+        int successCounter = 0;
+        int totalCounter = 0;
+        double resultPercentage = 0;
 
-    public void setResults(String results) {
-        this.results = results;
+        for(Task task1 : tasks) {
+            if (task1.getStatus().toArray()[0] == Status.Passed) {
+                successCounter++;
+                totalCounter++;
+            }
+            else {
+                totalCounter++;
+            }
+        }
+
+        resultPercentage = (double) successCounter / (double) totalCounter * 100;
+        resultPercentage = Precision.round(resultPercentage, 1);
+
+        return resultPercentage;
     }
 
     public String getDescription() {

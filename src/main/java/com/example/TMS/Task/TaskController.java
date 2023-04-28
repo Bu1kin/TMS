@@ -44,6 +44,8 @@ public class TaskController {
                           Model model){
         Test test1 = testRepo.findById(Long.valueOf(test.split(" ")[0])).orElseThrow();
 
+
+
         Task task = new Task(nameTask, priority, status, duration, description, test1);
         taskRepo.save(task);
         return ("redirect:/task/all");

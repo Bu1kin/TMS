@@ -82,12 +82,11 @@ public class ProjectController {
     public String testAdd(@PathVariable Long id,
                           @RequestParam String nameTest,
                           @RequestParam Set<Status> status,
-                          @RequestParam String results,
                           @RequestParam String description,
                           Model model){
         Project project = projectRepo.findById(id).orElseThrow();
 
-        Test test = new Test(nameTest, status, 1.0, results, description, project);
+        Test test = new Test(nameTest, status, 1.0, 0.0, description, project);
 
         testRepo.save(test);
         return ("redirect:/project/testList/{id}");

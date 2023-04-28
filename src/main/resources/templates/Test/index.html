@@ -15,14 +15,14 @@
                         Добавить
                         <svg aria-hidden="true" class="w-5 h-5 ml-1 text-white white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                     </button>
-<!--                    <button type="button" data-modal-target="modal1" data-modal-toggle="modal1" class="btn modal-trigger inline-flex items-center mr-4 px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-yellow-500 rounded-lg hover:bg-yellow-400">-->
-<!--                        Импорт-->
-<!--                        <svg aria-hidden="true" class="w-5 h-5 ml-1 text-white white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg>-->
-<!--                    </button>-->
-<!--                    <button type="button" data-modal-target="modal1" data-modal-toggle="modal1" class="btn modal-trigger inline-flex items-center mr-4 px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-indigo-600 rounded-lg hover:bg-indigo-500">-->
-<!--                        Экспорт-->
-<!--                        <svg aria-hidden="true" class="w-5 h-5 ml-1 text-white white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg>-->
-<!--                    </button>-->
+                    <button type="button" data-modal-target="modal1" data-modal-toggle="modal1" class="btn modal-trigger inline-flex items-center mr-4 px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-yellow-500 rounded-lg hover:bg-yellow-400">
+                        Импорт
+                        <svg aria-hidden="true" class="w-5 h-5 ml-1 text-white white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </button>
+                    <button type="button" data-modal-target="modal1" data-modal-toggle="modal1" class="btn modal-trigger inline-flex items-center mr-4 px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-indigo-600 rounded-lg hover:bg-indigo-500">
+                        Экспорт
+                        <svg aria-hidden="true" class="w-5 h-5 ml-1 text-white white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </button>
                 </div>
 
                 <div class="flex items-center justify-end pb-4">
@@ -82,7 +82,7 @@
                             <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         </div>
                         <th th:text="${el.version}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
-                        <th th:text="${el.results}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                        <th th:text="${el.getResults()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <div th:if="${!el.description.isEmpty()}">
                             <th th:text="${el.description}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         </div>
@@ -128,10 +128,10 @@
                                 <option th:value="${el}" th:text="${el.displayedName()}"></option>
                             </div>
                         </select>
-                        <div class="mb-6">
-                            <label for="results" class="block mb-2 text-sm font-medium text-white">Результаты</label>
-                            <input name="results" id="results" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Результаты" required>
-                        </div>
+<!--                        <div class="mb-6">-->
+<!--                            <label for="results" class="block mb-2 text-sm font-medium text-white">Результаты</label>-->
+<!--                            <input name="results" id="results" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Результаты" required>-->
+<!--                        </div>-->
 
                         <label for="project" class="block mb-2 text-sm font-medium text-white">Выберите проект</label>
                         <select id="project" required name="project" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" style="margin-top: 10px">

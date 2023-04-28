@@ -9,50 +9,50 @@
 <body class="bg-gray-900 h-screen">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div class="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
-            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <div class="p-6">
                 <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
                     Регистрация
                 </h1>
-                <div th:if="${error}" class="text-red-600">
+                <div th:if="${error}" class="mt-1 text-red-600">
                     Такой пользователь уже существует.
                 </div>
-                <form class="space-y-4 " action="/user/registration" method="post">
-                    <div>
+                <form class="mt-4" action="/user/registration" method="post">
+                    <div class="mb-3">
                         <label for="login" class="block mb-2 text-sm font-medium text-white">Логин</label>
                         <input name="login" id="login" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Логин" required="">
                     </div>
-                    <div>
+                    <div class="mb-3">
                         <label for="password" class="block mb-2 text-sm font-medium text-white">Пароль</label>
                         <input type="password" name="password" id="password" placeholder="••••••••" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required="">
                     </div>
-                    <div>
+                    <div class="mb-3">
                         <label for="surname" class="block mb-2 text-sm font-medium text-white">Фамилия</label>
                         <input name="surname" id="surname" placeholder="Фамилия" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required="">
                     </div>
-                    <div>
+                    <div class="mb-3">
                         <label for="name" class="block mb-2 text-sm font-medium text-white">Имя</label>
                         <input name="name" id="name" placeholder="Имя" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required="">
                     </div>
-                    <div>
+                    <div class="mb-3">
                         <label for="middleName" class="block mb-2 text-sm font-medium text-white">Отчество</label>
                         <input name="middleName" id="middleName" placeholder="Отчество" class="border sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required="">
                     </div>
 
-                    <label for="department" class="block mb-2 text-sm font-medium text-white">Выберите отдел</label>
-                    <select id="department" required name="department" class="border text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500">
+                    <label for="department" class="mb-3 block text-sm font-medium text-white">Выберите отдел</label>
+                    <select id="department" required name="department" class="mb-3 border text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500">
                         <div th:each="el : ${departments}">
                             <option th:value="${el.id}" th:text="${el.nameDepartment}"></option>
                         </div>
                     </select>
 
-                    <label for="post" class="block mb-2 text-sm font-medium text-white">Выберите должность</label>
-                    <select id="post" required name="post" class="border text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500">
+                    <label for="post" class="mb-3 block text-sm font-medium text-white">Выберите должность</label>
+                    <select id="post" required name="post" class="mb-6 border text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500">
                         <div th:each="el : ${posts}">
                             <option th:value="${el.id}" th:text="${el.postName}"></option>
                         </div>
                     </select>
 
-                    <input type="submit" value="Создать" class="cursor-pointer w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-primary-800"/>
+                    <input type="submit" value="Создать" class="mb-2.5 cursor-pointer w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-primary-800"/>
                     <p class="text-sm font-light text-gray-400">
                         <a href="login.html" class="font-medium hover:underline text-primary-500">Назад</a>
                     </p>
