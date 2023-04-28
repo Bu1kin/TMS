@@ -30,11 +30,13 @@ public class ProjectController {
 
     @GetMapping("/all")
     public String viewProject(Principal principal, Model model) {
+        Iterable<Project> projects = projectRepo.findAll();
         User user = userRepo.findByLoginAndActive(principal.getName(), true);
         List<Project> departmentProjects = projectRepo.findAllByUserDepartmentId(user.getDepartment().getId());
         String userData = user.getName() + " " + user.getMiddleName();
 
         model.addAttribute("userData", userData);
+        model.addAttribute("projects", projects);
         model.addAttribute("departmentProjects", departmentProjects);
         model.addAttribute("statuses", Status.values());
         return "/Project/index";

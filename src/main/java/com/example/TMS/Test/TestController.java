@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -32,11 +33,15 @@ public class TestController {
     TaskRepo taskRepo;
 
     @GetMapping("/all")
-    public String viewTest(Model model) {
+    public String viewTest(Principal principal, Model model) {
         Iterable<Test> tests = testRepo.findAll();
         Iterable<Project> projects = projectRepo.findAll();
 
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        List<Test> departmentTests = testRepo.findAllByProjectUserDepartmentId(user.getDepartment().getId());
+
         model.addAttribute("tests", tests);
+        model.addAttribute("departmentTests", departmentTests);
         model.addAttribute("projects", projects);
         model.addAttribute("status", Status.values());
         return "/Test/index";
@@ -141,27 +146,33 @@ public class TestController {
 
     @GetMapping("/filter-contains")
     public String testFilterContains(@RequestParam String searchName,
+                                         Principal principal,
                                          Model model){
-        List<Test> tests = testRepo.findByNameTestContaining(searchName);
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        List<Test> searchedDepartmentTests = testRepo.findByNameTestContainingAndProjectUserDepartmentId(searchName, user.getDepartment().getId());
         Iterable<Project> projects = projectRepo.findAll();
 
-        model.addAttribute("tests", tests);
+        model.addAttribute("searchedDepartmentTests", searchedDepartmentTests);
         model.addAttribute("projects", projects);
         model.addAttribute("status", Status.values());
         return "/Test/filter";
     }
 
     @GetMapping("/sortStatusAsc")
-    public String testSortAscContains(Model model){
-        List<Test> tests = testRepo.findAll(Sort.by("status").ascending());
-        model.addAttribute("tests", tests);
+    public String testSortAscContains(Principal principal, Model model){
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        List<Test> departmentTests = testRepo.findAllByProjectUserDepartmentId(Sort.by("status").ascending(), user.getDepartment().getId());
+
+        model.addAttribute("departmentTests", departmentTests);
         return "/Test/index";
     }
 
     @GetMapping("/sortStatusDesc")
-    public String testSortDescContains(Model model){
-        List<Test> tests = testRepo.findAll(Sort.by("status").descending());
-        model.addAttribute("tests", tests);
+    public String testSortDescContains(Principal principal, Model model){
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        List<Test> departmentTests = testRepo.findAllByProjectUserDepartmentId(Sort.by("status").descending(), user.getDepartment().getId());
+
+        model.addAttribute("departmentTests", departmentTests);
         return "/Test/index";
     }
 }
