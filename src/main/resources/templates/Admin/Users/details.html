@@ -12,19 +12,19 @@
                 <form th:each="el : ${user}" th:action="'/user/edit/' + ${el.getId()}" method="post">
                     <div class="mb-6">
                         <label for="login" class="block mb-2 text-sm font-medium text-white">Логин</label>
-                        <input id="login" name="login" th:value="${el.getLogin()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Название" required>
+                        <input id="login" name="login" th:value="${el.getLogin()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Логин" required>
                     </div>
                     <div class="mb-6">
                         <label for="surname" class="block mb-2 text-sm font-medium text-white">Фамилия</label>
-                        <input id="surname" name="surname" th:value="${el.getSurname()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Описание" required>
+                        <input id="surname" name="surname" th:value="${el.getSurname()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Фамилия" required>
                     </div>
                     <div class="mb-6">
                         <label for="name" class="block mb-2 text-sm font-medium text-white">Имя</label>
-                        <input id="name" name="name" th:value="${el.getName()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="ГГГГ-ММ-ДД" required>
+                        <input id="name" name="name" th:value="${el.getName()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Имя" required>
                     </div>
                     <div class="mb-6">
                         <label for="middleName" class="block mb-2 text-sm font-medium text-white">Отчество</label>
-                        <input id="middleName" name="middleName" th:value="${el.getMiddleName()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="ГГГГ-ММ-ДД" required>
+                        <input id="middleName" name="middleName" th:value="${el.getMiddleName()}" type="text" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Отчество" required>
                     </div>
 
                     <label for="department" class="block mb-2 text-sm font-medium text-white">Выберите отдел</label>

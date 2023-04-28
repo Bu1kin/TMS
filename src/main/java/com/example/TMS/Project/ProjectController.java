@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
@@ -19,14 +21,21 @@ import java.util.Set;
 public class ProjectController {
     @Autowired
     ProjectRepo projectRepo;
+
     @Autowired
     TestRepo testRepo;
 
-    @GetMapping("/all")
-    public String viewProject(Model model) {
-        Iterable<Project> projects = projectRepo.findAll();
+    @Autowired
+    UserRepo userRepo;
 
-        model.addAttribute("projects", projects);
+    @GetMapping("/all")
+    public String viewProject(Principal principal, Model model) {
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        List<Project> departmentProjects = projectRepo.findAllByUserDepartmentId(user.getDepartment().getId());
+        String userData = user.getName() + " " + user.getMiddleName();
+
+        model.addAttribute("userData", userData);
+        model.addAttribute("departmentProjects", departmentProjects);
         model.addAttribute("statuses", Status.values());
         return "/Project/index";
     }
@@ -34,11 +43,15 @@ public class ProjectController {
     @PostMapping("/add")
     public String projectAdd(@RequestParam String nameProject,
                              @RequestParam String description,
+                             Principal principal,
                              Model model){
         long millis = System.currentTimeMillis();
         Date date = new Date(millis);
 
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+
         Project project = new Project(nameProject, description, date);
+        project.setUser(user);
         projectRepo.save(project);
         return ("redirect:/project/all");
     }
@@ -47,8 +60,12 @@ public class ProjectController {
     public String projectEdit(Project project, BindingResult result) {
         if(result.hasErrors())
             return ("/Project/details");
+
         Project projectTemp = projectRepo.findById(project.getId()).orElseThrow();
+
         project.setDateCreation(projectTemp.getDateCreation());
+        project.setUser(projectTemp.getUser());
+
         projectRepo.save(project);
         return("redirect:/project/all");
     }
@@ -86,7 +103,7 @@ public class ProjectController {
                           Model model){
         Project project = projectRepo.findById(id).orElseThrow();
 
-        Test test = new Test(nameTest, status, 1.0, 0.0, description, project);
+        Test test = new Test(nameTest, status, 1.0, description, project);
 
         testRepo.save(test);
         return ("redirect:/project/testList/{id}");

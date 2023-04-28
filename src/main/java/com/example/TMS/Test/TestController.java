@@ -51,7 +51,7 @@ public class TestController {
                           Model model){
         Project project1 = projectRepo.findById(Long.valueOf(project.split(" ")[0])).orElseThrow();
 
-        Test test = new Test(nameTest, status, 1.0, results, description, project1);
+        Test test = new Test(nameTest, status, 1.0, description, project1);
         testRepo.save(test);
         return ("redirect:/test/all");
     }

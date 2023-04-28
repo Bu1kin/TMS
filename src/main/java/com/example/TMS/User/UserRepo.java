@@ -6,4 +6,5 @@ import java.util.List;
 public interface UserRepo extends JpaRepository<User, Long> {
     public List<User> findBySurname(String name);
     public User findByLogin(String name);
+    public User findByLoginAndActive(String login, Boolean active);
 }

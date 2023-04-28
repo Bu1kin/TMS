@@ -28,10 +28,10 @@ public class Test {
     @ManyToOne(cascade = CascadeType.DETACH)
     private Project project;
 
-    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY, cascade = CascadeType.DETACH, orphanRemoval = true)
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private Collection<Task> tasks;
 
-    public Test(String nameTest, Set<Status> status, Double version, Double results, String description, Project project) {
+    public Test(String nameTest, Set<Status> status, Double version, String description, Project project) {
         this.nameTest = nameTest;
         this.status = status;
         this.version = version;

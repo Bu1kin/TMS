@@ -126,11 +126,10 @@
                                 <option th:value="${el}" th:text="${el.displayedName()}"></option>
                             </div>
                         </select>
-                        <div class="mb-6">
-                            <label for="results" class="block mb-2 text-sm font-medium text-white">Результаты</label>
-                            <input name="results" id="results" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Результаты" required>
-                        </div>
-
+<!--                        <div class="mb-6">-->
+<!--                            <label for="results" class="block mb-2 text-sm font-medium text-white">Результаты</label>-->
+<!--                            <input name="results" id="results" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Результаты" required>-->
+<!--                        </div>-->
                         <label for="project" class="block mb-2 text-sm font-medium text-white">Выберите проект</label>
                         <select id="project" required name="project" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" style="margin-top: 10px">
                             <div th:each="el : ${projects}">

@@ -5,23 +5,25 @@
     <title>Проекты</title>
     <div th:insert="utility/3page"></div>
 </head>
+<!--truncate-->
 <body class="bg-gray-800">
     <div class="p-4 sm:ml-64 bg-gray-800">
         <div class="p-4 border-2 border-gray-800 border-dashed rounded-lg mt-14">
-            <p class="text-3xl text-white font-semibold">Добро пожаловать, !</p>
-            <p class="text-3xl text-white font-semibold">Проекты</p>
-            <p class="text-base text-gray-200 mt-2">Здесь будут отображаться проекты организации</p>
+            <div class="md:space-y-3.5 sm:space-y-4 mb-5">
+                <p class="text-3xl text-white font-semibold" th:text="'Добро пожаловать,' + ' ' + ${userData} + '!'"></p>
+                <p class="text-2xl text-white font-semibold">Проекты вашего отдела:</p>
+            </div>
             <div class="grid grid-cols-4 gap-4 mb-4 mt-4">
                 <button data-modal-target="modal1" data-modal-toggle="modal1" class="items-center justify-center h-48 rounded bg-gray-500 hover:bg-gray-400 focus:bg-gray-400 text-3xl text-white btn modal-trigger" href="#modal1">+</button>
 
-                <div th:each="el: ${projects}" class="h-48 p-4 border border-gray-400 rounded-lg shadow bg-gray-500 hover:bg-gray-400">
+                <div th:each="el: ${departmentProjects}" class="h-48 p-4 border border-gray-400 rounded-lg shadow bg-gray-500 hover:bg-gray-400">
                     <a href="#">
                         <h5 th:text="${el.nameProject}" class="truncate mb-2 text-2xl font-bold tracking-tight text-white"></h5>
                     </a>
                     <div th:if="${!el.description.isEmpty()}">
                         <p th:text="${el.description}" class="truncate mb-3 font-normal text-white text"></p>
                     </div>
-                    <p th:if="${el.description.isEmpty()}" class="truncate mb-3 font-normal text-gray-300 text italic">Описание отсутствует.</p>
+                    <p th:if="${el.description.isEmpty()}" class="truncate mb-3 font-normal text-gray-300 text italic">Нет описания</p>
                     <a th:href="'/project/testList/' + ${el.getId()}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-500">
                         <svg aria-hidden="true" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </a>
