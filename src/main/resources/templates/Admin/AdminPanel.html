@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <div th:insert="utility/3page"></div>
+</head>
+<body class="bg-gray-800 h-screen">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <p href="#" class="flex items-center mb-6 text-2xl font-semibold text-white">
+            Специальные возможности
+        </p>
+        <div class="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-700 border-gray-500">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <div class="space-y-4 md:space-y-6">
+                    <div class="w-full text-white bg-blue-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <a id="backup">Создать копию базы данных</a>
+                    </div>
+                    <div class="w-full text-white bg-green-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <a id="restore">Восстановить базу данных</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
+
+<!--<a id="backup" class="cursor-pointer w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-primary-800">Создать копию базы данных</a>-->
+<!--<a id="restore" class="cursor-pointer w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:ring-primary-800">Восстановить базу данных</a>-->
+
+<script>
+    document.getElementById('restore').addEventListener('click', function () {
+
+        $.get('/admin/restore', {dbName: 'TMS'}, function(data){
+            alert(data);
+        });
+    });
+
+    document.getElementById('backup').addEventListener('click', function () {
+
+        $.get('/admin/backup', {dbName: 'TMS'}, function(data){
+            alert(data);
+        });
+    });
+</script>
