@@ -87,10 +87,8 @@ public class TestController {
     @GetMapping("/details/{id}")
     public String testDetails(Model model, @PathVariable Long id) {
         Test test = testRepo.findById(id).orElseThrow();
-        Iterable<Project> projects = projectRepo.findAll();
 
         model.addAttribute("test", test);
-        model.addAttribute("projects", projects);
         model.addAttribute("status", Status.values());
         return "/Test/details";
     }

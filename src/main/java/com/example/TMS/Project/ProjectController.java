@@ -111,6 +111,17 @@ public class ProjectController {
         return ("redirect:/project/testList/{id}");
     }
 
+//    @GetMapping("/testList/{idProject}/testDetails/{idTest}")
+//    public String testDetailsFromTestList(Model model, @PathVariable Long idProject, @PathVariable Long idTest) {
+//        Project currProject = projectRepo.findById(idProject).orElseThrow();
+//        Test test = testRepo.findById(idTest).orElseThrow();
+//
+//        model.addAttribute("test", test);
+//        model.addAttribute("status", Status.values());
+//        return "/Test/details";
+//    }
+    //два контроллера: изменение и удаление данных теста внутри проекта
+
     @GetMapping("/sortTestListByStatusAsc/{id}")
     public String testListSortAsc(@PathVariable Long id, Model model){
         Project project = projectRepo.findById(id).orElseThrow();

@@ -12,7 +12,7 @@
             <div class="grid grid-cols-2 items-center flex mt-4">
                 <div class="flex items-center justify-start pb-4">
                     <div>
-                        <a th:href="'/project/all'" type="button" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-gray-500 rounded-lg hover:bg-gray-400 mr-5">
+                        <a href="javascript:history.back()" type="button" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-gray-500 rounded-lg hover:bg-gray-400 mr-5">
                             <svg aria-hidden="true" class="w-5 h-5 mr-1 text-white white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
@@ -85,7 +85,21 @@
                     <tr th:each="el : ${tests}" class="border-b bg-gray-700 border-gray-600 hover:bg-gray-600">
                         <th th:text="${el.nameTest}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <div th:each="el1 : ${el.status}">
-                            <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                            <div th:if="${el1.displayedName()} == 'Пройден'">
+                                <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
+                                    <span th:text="${el1.displayedName()}" class="bg-green-600 rounded px-2 py-0.5"></span>
+                                </th>
+                            </div>
+                            <div th:if="${el1.displayedName} == 'Не пройден'">
+                                <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
+                                    <span th:text="${el1.displayedName()}" class="bg-red-600 rounded px-2 py-0.5"></span>
+                                </th>
+                            </div>
+                            <div th:if="${el1.displayedName} == 'Отменён'">
+                                <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
+                                    <span th:text="${el1.displayedName()}" class="bg-yellow-600 rounded px-2 py-0.5"></span>
+                                </th>
+                            </div>
                         </div>
                         <th th:text="'v' + ${el.version}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <div th:if="${!el.getResults().isNaN()}">

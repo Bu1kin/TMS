@@ -77,7 +77,21 @@
                     <tr th:each="el : ${searchedDepartmentTests}" class="border-b bg-gray-700 border-gray-600 hover:bg-gray-600">
                         <th th:text="${el.nameTest}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <div th:each="el1 : ${el.status}">
-                            <th th:text="${el1.displayedName()}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
+                            <div th:if="${el1.displayedName()} == 'Пройден'">
+                                <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
+                                    <span th:text="${el1.displayedName()}" class="bg-green-600 rounded px-2 py-0.5"></span>
+                                </th>
+                            </div>
+                            <div th:if="${el1.displayedName} == 'Не пройден'">
+                                <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
+                                    <span th:text="${el1.displayedName()}" class="bg-red-600 rounded px-2 py-0.5"></span>
+                                </th>
+                            </div>
+                            <div th:if="${el1.displayedName} == 'Отменён'">
+                                <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
+                                    <span th:text="${el1.displayedName()}" class="bg-yellow-600 rounded px-2 py-0.5"></span>
+                                </th>
+                            </div>
                         </div>
                         <th th:text="'v' + ${el.version}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <div th:if="${!el.getResults().isNaN()}">
