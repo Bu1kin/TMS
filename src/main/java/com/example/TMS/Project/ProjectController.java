@@ -129,6 +129,7 @@ public class ProjectController {
 
         model.addAttribute("project", project);
         model.addAttribute("tests", tests);
+        model.addAttribute("status", Status.values());
         return "/Project/testList";
     }
 
@@ -139,6 +140,7 @@ public class ProjectController {
 
         model.addAttribute("project", project);
         model.addAttribute("tests", tests);
+        model.addAttribute("status", Status.values());
         return "/Project/testList";
     }
 }

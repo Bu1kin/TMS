@@ -1,5 +1,7 @@
 package com.example.TMS.Department;
 
+import com.example.TMS.User.User;
+import com.example.TMS.User.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,9 @@ import java.util.List;
 public class DepartmentController {
     @Autowired
     DepartmentRepo departmentRepo;
+
+    @Autowired
+    UserRepo userRepo;
 
     @GetMapping("/all")
     public String viewDepartments(Model model) {
@@ -44,7 +49,10 @@ public class DepartmentController {
     @GetMapping("/details/{id}")
     public String departmentDetails(Model model, @PathVariable Long id) {
         Department department = departmentRepo.findById(id).orElseThrow();
+        List<User> users = userRepo.findAllByDepartment_Id(department.getId());
+
         model.addAttribute("department", department);
+        model.addAttribute("users", users);
         return "/Admin/Departments/details";
     }
 

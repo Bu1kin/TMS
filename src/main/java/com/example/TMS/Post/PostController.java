@@ -1,5 +1,7 @@
 package com.example.TMS.Post;
 
+import com.example.TMS.User.User;
+import com.example.TMS.User.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,9 @@ import java.util.List;
 public class PostController {
     @Autowired
     PostRepo postRepo;
+
+    @Autowired
+    UserRepo userRepo;
 
     @GetMapping("/all")
     public String viewPost(Model model) {
@@ -44,7 +49,10 @@ public class PostController {
     @GetMapping("/details/{id}")
     public String postDetails(Model model, @PathVariable Long id) {
         Post post = postRepo.findById(id).orElseThrow();
+        List<User> users = userRepo.findAllByPost_Id(post.getId());
+
         model.addAttribute("post", post);
+        model.addAttribute("users", users);
         return "/Admin/post/details";
     }
 

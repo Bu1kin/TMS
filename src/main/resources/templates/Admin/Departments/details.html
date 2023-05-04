@@ -11,15 +11,20 @@
             <div class="row">
                 <form th:each="el : ${department}" th:action="'/department/edit/' + ${el.getId()}" method="post">
                     <p class="text-3xl text-white font-semibold mb-5" th:text="'Отдел №' + ${el.getId()}"></p>
-                    <div class="mb-6">
+                    <div class="mb-5">
                         <label for="nameDepartment" class="block mb-2 text-sm font-medium text-white">Название отдела</label>
                         <input name="nameDepartment" th:value="${el.getNameDepartment()}" type="text" id="nameDepartment" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Название" required>
                     </div>
-<!--                    список пользователей в отделе?-->
-                    <div class="mb-6">
+
+                    <p class="mb-2 text-base font-medium text-white">Список сотрудников отдела:</p>
+
+                    <div th:each="el : ${users}">
+                        <a th:text="${el.getSurname()} + ' ' + ${el.getName()} + ' ' + ${el.getMiddleName()}" th:href="'/user/details/' + ${el.getId()}" class="text-base font-medium text-white underline"></a>
+                    </div>
+                    <div class="mt-5">
                         <input type="submit" value="Изменить" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"/>
                         <a data-modal-target="modal1" data-modal-toggle="modal1" class="cursor-pointer text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Удалить</a>
-                        <a th:href="'/department/all'" class="text-white bg-gray-500 hover:bg-gray-400 focus:ring-2 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Назад</a>
+                        <a href="javascript:history.back()" class="text-white bg-gray-500 hover:bg-gray-400 focus:ring-2 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Назад</a>
                     </div>
 
                     <div id="modal1" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
