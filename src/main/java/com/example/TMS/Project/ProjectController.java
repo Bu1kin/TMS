@@ -5,14 +5,22 @@ import com.example.TMS.Test.Test;
 import com.example.TMS.Test.TestRepo;
 import com.example.TMS.User.User;
 import com.example.TMS.User.UserRepo;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.security.Principal;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -47,8 +55,10 @@ public class ProjectController {
                              @RequestParam String description,
                              Principal principal,
                              Model model){
-        long millis = System.currentTimeMillis();
-        Date date = new Date(millis);
+
+        LocalDate dateObj = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = dateObj.format(formatter);
 
         User user = userRepo.findByLoginAndActive(principal.getName(), true);
 
@@ -143,4 +153,9 @@ public class ProjectController {
         model.addAttribute("status", Status.values());
         return "/Project/testList";
     }
+
+//    @PostMapping("/import")
+//    public String projectImport(@RequestParam("file") MultipartFile file, Model model){
+//
+//    }
 }

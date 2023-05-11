@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 
@@ -133,5 +134,19 @@ public class UserController {
         List<User> users = userRepo.findBySurname(searchName);
         model.addAttribute("users", users);
         return "/Admin/Users/filter";
+    }
+
+    @GetMapping("/profile")
+    public String userProfile(Principal principal, Model model){
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        Iterable<Post> posts = postRepo.findAll();
+        Iterable<Department> departments = departmentRepo.findAll();
+
+        model.addAttribute("user", user);
+        model.addAttribute("posts", posts);
+        model.addAttribute("departments", departments);
+        model.addAttribute("roles", Roles.values());
+
+        return "/Admin/Users/profile";
     }
 }

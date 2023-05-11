@@ -14,14 +14,14 @@ public class Project {
     private Long id;
     private String nameProject;
     private String description;
-    private Date dateCreation;
+    private String dateCreation;
     @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<Test> tests;
 
-    public Project(String nameProject, String description, Date dateCreation) {
+    public Project(String nameProject, String description, String dateCreation) {
         this.nameProject = nameProject;
         this.description = description;
         this.dateCreation = dateCreation;
@@ -55,11 +55,11 @@ public class Project {
         this.description = description;
     }
 
-    public Date getDateCreation() {
+    public String getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(String dateCreation) {
         this.dateCreation = dateCreation;
     }
 

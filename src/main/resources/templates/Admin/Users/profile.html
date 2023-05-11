@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Подробности сотрудника</title>
+    <div th:insert="utility/3page"></div>
+</head>
+<body class="bg-gray-800">
+<div class="p-4 sm:ml-64 bg-gray-800">
+    <div class="p-4 mt-14">
+        <div class="row">
+            <div th:each="el : ${user}">
+                <p class="text-3xl text-white font-semibold mb-5" th:text="'Ваш ID: ' + ${el.getId()}"></p>
+                <div class="mb-6">
+                    <label for="login" class="block mb-2 text-sm font-medium text-white">Ваш логин</label>
+                    <input id="login" name="login" th:value="${el.getLogin()}" type="text" disabled class="cursor-not-allowed border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Логин" required>
+                </div>
+                <div class="mb-6">
+                    <label for="surname" class="block mb-2 text-sm font-medium text-white">Ваша фамилия</label>
+                    <input id="surname" name="surname" th:value="${el.getSurname()}" type="text" disabled class="cursor-not-allowed border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Фамилия" required>
+                </div>
+                <div class="mb-6">
+                    <label for="name" class="block mb-2 text-sm font-medium text-white">Ваше имя</label>
+                    <input id="name" name="name" th:value="${el.getName()}" type="text" disabled class="cursor-not-allowed border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Имя" required>
+                </div>
+                <div class="mb-6">
+                    <label for="middleName" class="block mb-2 text-sm font-medium text-white">Ваше отчество</label>
+                    <input id="middleName" name="middleName" th:value="${el.getMiddleName()}" type="text" disabled class="cursor-not-allowed border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Отчество" required>
+                </div>
+
+                <label for="department" class="block mb-2 text-sm font-medium text-white">Ваш отдел</label>
+                <select id="department" required name="department" disabled class="cursor-not-allowed mb-6 border text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500">
+                    <div th:each="el : ${departments}">
+                        <option th:value="${el.id}" th:text="${el.nameDepartment}"></option>
+                    </div>
+                </select>
+
+                <label for="post" class="block mb-2 text-sm font-medium text-white">Ваша должность</label>
+                <select id="post" required name="post" disabled class="cursor-not-allowed mb-6 border text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500">
+                    <div th:each="el : ${posts}">
+                        <option th:value="${el.id}" th:text="${el.postName}"></option>
+                    </div>
+                </select>
+
+                <div class="mb-6">
+                    <a href="javascript:history.back()" class="text-white bg-gray-500 hover:bg-gray-400 focus:ring-2 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Назад</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
