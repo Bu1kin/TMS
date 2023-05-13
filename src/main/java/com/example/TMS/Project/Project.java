@@ -27,6 +27,13 @@ public class Project {
         this.dateCreation = dateCreation;
     }
 
+    public Project(String nameProject, String description, String dateCreation, User user) {
+        this.nameProject = nameProject;
+        this.description = description;
+        this.dateCreation = dateCreation;
+        this.user = user;
+    }
+
     public Project() {
 
     }
