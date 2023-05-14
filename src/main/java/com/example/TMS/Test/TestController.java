@@ -4,6 +4,7 @@ import com.example.TMS.Enums.Priority;
 import com.example.TMS.Enums.Status;
 import com.example.TMS.Project.Project;
 import com.example.TMS.Project.ProjectRepo;
+import com.example.TMS.Role.Roles;
 import com.example.TMS.Task.Task;
 import com.example.TMS.Task.TaskRepo;
 import com.example.TMS.User.User;
@@ -18,9 +19,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -253,5 +261,40 @@ public class TestController {
         model.addAttribute("departmentProjects", departmentProjects);
         model.addAttribute("status", Status.values());
         return "/Test/index";
+    }
+
+    @GetMapping("/export")
+    public void exportToCSV(HttpServletResponse response, Principal principal) throws IOException {
+        response.setContentType("text/csv");
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=tests_" + currentDateTime + ".csv";
+        response.setHeader(headerKey, headerValue);
+        response.setHeader(headerKey, headerValue);
+        response.setCharacterEncoding("UTF-8");
+
+        List<Test> departmentTests;
+
+        if(user.getRole().toArray()[0] == Roles.Пользователь){
+            departmentTests = testRepo.findAllByProjectUserDepartmentId(user.getDepartment().getId());
+        }
+        else {
+            departmentTests = testRepo.findAll();
+        }
+
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = {"ID", "NameTest", "Status", "Version", "Description"};
+        String[] nameMapping = {"id", "nameTest", "status", "version", "description"};
+
+        csvWriter.writeHeader(csvHeader);
+
+        for (Test testTemp : departmentTests) {
+            csvWriter.write(testTemp, nameMapping);
+        }
+
+        csvWriter.close();
     }
 }

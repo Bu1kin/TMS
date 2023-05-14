@@ -154,6 +154,7 @@ public class TaskController {
         String headerValue = "attachment; filename=tasks_" + currentDateTime + ".csv";
         response.setHeader(headerKey, headerValue);
         response.setHeader(headerKey, headerValue);
+        response.setCharacterEncoding("UTF-8");
 
         List<Task> departmentTasks;
 
