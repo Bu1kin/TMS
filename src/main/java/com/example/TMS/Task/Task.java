@@ -35,6 +35,14 @@ public class Task {
         this.test = test;
     }
 
+    public Task(String nameTask, Set<Priority> priority, Set<Status> status, String duration, String description) {
+        this.nameTask = nameTask;
+        this.priority = priority;
+        this.status = status;
+        this.duration = duration;
+        this.description = description;
+    }
+
     public Task() {
 
     }

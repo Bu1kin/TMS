@@ -39,6 +39,13 @@ public class Test {
         this.project = project;
     }
 
+    public Test(String nameTest, Set<Status> status, Double version, String description) {
+        this.nameTest = nameTest;
+        this.status = status;
+        this.version = version;
+        this.description = description;
+    }
+
     public Test() {
 
     }

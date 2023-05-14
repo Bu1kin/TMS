@@ -131,6 +131,23 @@ public class ProjectController {
         return ("redirect:/project/testList/{id}");
     }
 
+    @PostMapping("/testList/{id}/import")
+    public String testImport(@RequestParam("file") MultipartFile file, @PathVariable Long id){
+        Project project = projectRepo.findById(id).orElseThrow();
+
+        if (ImportHelper.hasCSVFormat(file)) {
+            try {
+                fileService.saveTests(file, project);
+
+                return ("redirect:/project/testList/{id}");
+            } catch (Exception e) {
+                return e.getMessage();
+            }
+        }
+
+        return ("redirect:/project/testList/{id}");
+    }
+
 //    @GetMapping("/testList/{idProject}/testDetails/{idTest}")
 //    public String testDetailsFromTestList(Model model, @PathVariable Long idProject, @PathVariable Long idTest) {
 //        Project currProject = projectRepo.findById(idProject).orElseThrow();
@@ -165,12 +182,13 @@ public class ProjectController {
     }
 
     @PostMapping("/import")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
-        String message = "";
+    public String uploadFile(@RequestParam("file") MultipartFile file, Principal principal) {
+
+        User user = userRepo.findByLoginAndActive(principal.getName(), true);
 
         if (ImportHelper.hasCSVFormat(file)) {
             try {
-                fileService.save(file);
+                fileService.saveProjects(file, user);
 
                 return("redirect:/project/all");
             } catch (Exception e) {

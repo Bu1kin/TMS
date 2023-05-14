@@ -8,6 +8,8 @@ import com.example.TMS.Task.Task;
 import com.example.TMS.Task.TaskRepo;
 import com.example.TMS.User.User;
 import com.example.TMS.User.UserRepo;
+import com.example.TMS.Utility.CSVService;
+import com.example.TMS.Utility.ImportHelper;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -25,12 +28,18 @@ import java.util.*;
 public class TestController {
     @Autowired
     TestRepo testRepo;
+
     @Autowired
     UserRepo userRepo;
+
     @Autowired
     ProjectRepo projectRepo;
+
     @Autowired
     TaskRepo taskRepo;
+
+    @Autowired
+    CSVService fileService;
 
     @GetMapping("/all")
     public String viewTest(Principal principal, Model model) {
@@ -157,6 +166,23 @@ public class TestController {
         Task task = new Task(nameTask, priority, status, duration, description, test);
 
         taskRepo.save(task);
+
+        return ("redirect:/test/taskList/{id}");
+    }
+
+    @PostMapping("/taskList/{id}/import")
+    public String taskImport(@RequestParam("file") MultipartFile file, @PathVariable Long id){
+        Test test = testRepo.findById(id).orElseThrow();
+
+        if (ImportHelper.hasCSVFormat(file)) {
+            try {
+                fileService.saveTasks(file, test);
+
+                return ("redirect:/test/taskList/{id}");
+            } catch (Exception e) {
+                return e.getMessage();
+            }
+        }
 
         return ("redirect:/test/taskList/{id}");
     }
