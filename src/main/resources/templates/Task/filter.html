@@ -77,12 +77,12 @@
                         <tr th:each="el : ${searchedDepartmentTasks}" class="border-b bg-gray-700 border-gray-600 hover:bg-gray-600">
                             <th th:text="${el.nameTask}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                             <div th:each="el1 : ${el.priority}">
-                                <div th:if="${el1.displayedName()} == 'Низкий'">
+                                <div th:if="${el1.displayedName()} == 'Высокий'">
                                     <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
                                         <span th:text="${el1.displayedName()}" class="bg-green-600 rounded px-2 py-0.5"></span>
                                     </th>
                                 </div>
-                                <div th:if="${el1.displayedName} == 'Высокий'">
+                                <div th:if="${el1.displayedName} == 'Низкий'">
                                     <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
                                         <span th:text="${el1.displayedName()}" class="bg-red-600 rounded px-2 py-0.5"></span>
                                     </th>

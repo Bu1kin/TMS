@@ -166,8 +166,8 @@ public class TaskController {
         }
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-        String[] csvHeader = {"ID", "NameTask", "Priority", "Status", "Duration", "Description"};
-        String[] nameMapping = {"id", "nameTask", "priority", "status", "duration", "description"};
+        String[] csvHeader = {"NameTask", "Priority", "Status", "Duration", "Description"};
+        String[] nameMapping = {"nameTask", "priority", "status", "duration", "description"};
 
         csvWriter.writeHeader(csvHeader);
 

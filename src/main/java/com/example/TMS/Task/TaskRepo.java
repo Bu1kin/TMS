@@ -9,7 +9,6 @@ public interface TaskRepo extends JpaRepository<Task, Long> {
     public List<Task> findByNameTaskContaining(String name);
     public List<Task> findByNameTaskContainingAndTestProjectUserDepartmentId(String name, Long id);
     public List<Task> findAllByTest_Id(Long id);
-//    public List<Task> findAll(Sort sort);
     public List<Task> findAllByTestProjectUserDepartmentId(Sort sort, Long id);
     public List<Task> findAllByTestProjectUserDepartmentId(Long id);
     public List<Task> findAllByTest_IdOrderByPriorityAsc(Long id);

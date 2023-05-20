@@ -156,6 +156,33 @@ public class ProjectController {
         return ("redirect:/project/testList/{id}");
     }
 
+    @GetMapping("/testList/{id}/export")
+    public void projectTestsExportToCSV(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=tests_from_project_#" + id + " " + currentDateTime + ".csv";
+        response.setHeader(headerKey, headerValue);
+        response.setHeader(headerKey, headerValue);
+        response.setCharacterEncoding("UTF-8");
+
+        List<Test> tests = testRepo.findAllByProject_Id(id);
+
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = {"NameTest", "Status", "Version", "Description"};
+        String[] nameMapping = {"nameTest", "status", "version", "description"};
+
+        csvWriter.writeHeader(csvHeader);
+
+        for (Test testTemp : tests) {
+            csvWriter.write(testTemp, nameMapping);
+        }
+
+        csvWriter.close();
+    }
+
 //    @GetMapping("/testList/{idProject}/testDetails/{idTest}")
 //    public String testDetailsFromTestList(Model model, @PathVariable Long idProject, @PathVariable Long idTest) {
 //        Project currProject = projectRepo.findById(idProject).orElseThrow();
@@ -230,8 +257,8 @@ public class ProjectController {
         }
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-        String[] csvHeader = {"ID", "NameProject", "Description", "DateCreation"};
-        String[] nameMapping = {"id", "nameProject", "description", "dateCreation"};
+        String[] csvHeader = {"NameProject", "Description", "DateCreation"};
+        String[] nameMapping = {"nameProject", "description", "dateCreation"};
 
         csvWriter.writeHeader(csvHeader);
 

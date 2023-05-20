@@ -51,9 +51,8 @@ public class TestController {
 
     @GetMapping("/all")
     public String viewTest(Principal principal, Model model) {
-        Iterable<Test> tests = testRepo.findAll();
-
         User user = userRepo.findByLoginAndActive(principal.getName(), true);
+        Iterable<Test> tests = testRepo.findAll();
         List<Test> departmentTests = testRepo.findAllByProjectUserDepartmentId(user.getDepartment().getId());
         Iterable<Project> departmentProjects = projectRepo.findAllByUserDepartmentId(user.getDepartment().getId());
 
@@ -195,6 +194,34 @@ public class TestController {
         return ("redirect:/test/taskList/{id}");
     }
 
+    @GetMapping("/taskList/{id}/export")
+    public void testTasksExportToCSV(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=tasks_from_test_#" + id + " " + currentDateTime + ".csv";
+        response.setHeader(headerKey, headerValue);
+        response.setHeader(headerKey, headerValue);
+        response.setCharacterEncoding("UTF-8");
+
+        List<Task> tasks = taskRepo.findAllByTest_Id(id);
+
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = {"NameTask", "Priority", "Status", "Duration", "Description"};
+        String[] nameMapping = {"nameTask", "priority", "status", "duration", "description"};
+
+        csvWriter.writeHeader(csvHeader);
+
+        for (Task taskTemp : tasks) {
+            csvWriter.write(taskTemp, nameMapping);
+        }
+
+        csvWriter.close();
+    }
+
     @GetMapping("/sortTaskListByPriorityAsc/{id}")
     public String taskListSortAsc(@PathVariable Long id, Model model){
         Test test = testRepo.findById(id).orElseThrow();
@@ -286,8 +313,8 @@ public class TestController {
         }
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-        String[] csvHeader = {"ID", "NameTest", "Status", "Version", "Description"};
-        String[] nameMapping = {"id", "nameTest", "status", "version", "description"};
+        String[] csvHeader = {"NameTest", "Status", "Version", "Description"};
+        String[] nameMapping = {"nameTest", "status", "version", "description"};
 
         csvWriter.writeHeader(csvHeader);
 

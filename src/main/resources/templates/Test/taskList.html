@@ -22,7 +22,7 @@
                         Импорт
                         <svg aria-hidden="true" class="w-5 h-5 ml-1 text-white white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                     </button>
-                    <a th:href="''" class="btn modal-trigger inline-flex items-center mr-4 px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-indigo-600 rounded-lg hover:bg-indigo-500">
+                    <a th:href="'/test/taskList/' + ${test.getId()} + '/export'" class="btn modal-trigger inline-flex items-center mr-4 px-3 py-1.5 text-sm font-medium text-base text-center text-white bg-indigo-600 rounded-lg hover:bg-indigo-500">
                         Экспорт
                         <svg aria-hidden="true" class="w-5 h-5 ml-1 text-white white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                     </a>
@@ -50,16 +50,6 @@
                         </ul>
                     </div>
                 </div>
-<!--                <div class="flex items-center justify-end pb-4">-->
-
-<!--                    <label for="table-search" class="sr-only">Search</label>-->
-<!--                    <div class="relative">-->
-<!--                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">-->
-<!--                            <svg class="w-5 h-5 text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>-->
-<!--                        </div>-->
-<!--                        <input type="text" id="table-search" class="block p-2 pl-10 focus:outline-none text-sm border rounded-lg w-80 bg-gray-700 border-gray-600 placeholder-gray-200 text-white" placeholder="Название задачи">-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-400">
@@ -91,12 +81,12 @@
                     <tr th:each="el : ${tasks}" class="border-b bg-gray-700 border-gray-600 hover:bg-gray-600">
                         <th th:text="${el.nameTask}" scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white"></th>
                         <div th:each="el1 : ${el.priority}">
-                            <div th:if="${el1.displayedName()} == 'Низкий'">
+                            <div th:if="${el1.displayedName()} == 'Высокий'">
                                 <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
                                     <span th:text="${el1.displayedName()}" class="bg-green-600 rounded px-2 py-0.5"></span>
                                 </th>
                             </div>
-                            <div th:if="${el1.displayedName} == 'Высокий'">
+                            <div th:if="${el1.displayedName} == 'Низкий'">
                                 <th scope="row" class="px-6 py-2 font-medium whitespace-nowrap text-white">
                                     <span th:text="${el1.displayedName()}" class="bg-red-600 rounded px-2 py-0.5"></span>
                                 </th>
