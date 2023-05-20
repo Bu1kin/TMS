@@ -177,6 +177,16 @@ public class TestController {
         return ("redirect:/test/taskList/{id}");
     }
 
+    @GetMapping("/taskList/{id}/del")
+    public String allTaskDeleteFromTest(@PathVariable Long id) {
+        List<Task> tasks = taskRepo.findAllByTest_Id(id);
+
+        for (Task task : tasks) {
+            taskRepo.deleteById(task.getId());
+        }
+        return("redirect:/test/taskList/{id}");
+    }
+
     @PostMapping("/taskList/{id}/import")
     public String taskImport(@RequestParam("file") MultipartFile file, @PathVariable Long id){
         Test test = testRepo.findById(id).orElseThrow();

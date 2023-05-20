@@ -2,6 +2,7 @@ package com.example.TMS.Project;
 
 import com.example.TMS.Enums.Status;
 import com.example.TMS.Role.Roles;
+import com.example.TMS.Task.Task;
 import com.example.TMS.Test.Test;
 import com.example.TMS.Test.TestRepo;
 import com.example.TMS.User.User;
@@ -137,6 +138,16 @@ public class ProjectController {
 
         testRepo.save(test);
         return ("redirect:/project/testList/{id}");
+    }
+
+    @GetMapping("/testList/{id}/del")
+    public String allTaskDeleteFromProject(@PathVariable Long id) {
+        List<Test> tests = testRepo.findAllByProject_Id(id);
+
+        for (Test test : tests) {
+            testRepo.deleteById(test.getId());
+        }
+        return("redirect:/project/testList/{id}");
     }
 
     @PostMapping("/testList/{id}/import")
