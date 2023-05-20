@@ -15,7 +15,7 @@ public class Project {
     private String nameProject;
     private String description;
     private String dateCreation;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private User user;
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
