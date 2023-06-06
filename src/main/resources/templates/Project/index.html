@@ -128,7 +128,7 @@
                     <form method="post" th:action="'/project/import'" enctype="multipart/form-data">
 
                         <label class="block mb-2 text-sm font-medium text-white" for="singleFileUploadInput">Файл</label>
-                        <input id="singleFileUploadInput" name="file" type="file" class="block w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="file_input_help">
+                        <input id="singleFileUploadInput" accept=".csv, text/plain" name="file" type="file" class="block w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="file_input_help">
                         <p class="mt-1 text-sm text-gray-300" id="file_input_help">Только .CSV формат</p>
 
                         <div class="flex items-center pt-2 space-x-2 rounded-b" style="margin-top: 12px">
